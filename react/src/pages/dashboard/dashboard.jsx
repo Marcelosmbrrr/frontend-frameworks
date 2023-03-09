@@ -10,8 +10,8 @@ export function Dashboard() {
     }, []);
 
     return (
-        <div className='w-full h-full'>
-
+        <div className='w-full h-full shadow rounded-md'>
+            
         </div>
     )
 }

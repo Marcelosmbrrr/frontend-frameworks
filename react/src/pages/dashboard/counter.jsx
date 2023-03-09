@@ -35,7 +35,7 @@ export function Counter() {
 
     return (
         <div className='w-full h-full flex justify-center'>
-            <div class="max-w-sm rounded overflow-hidden shadow-lg">
+            <div class="max-w-sm rounded overflow-hidden shadow">
                 <div className="w-full h-32 flex justify-center items-center">
                     {result}
                 </div>
