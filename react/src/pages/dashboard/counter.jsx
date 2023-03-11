@@ -35,24 +35,24 @@ export function Counter() {
 
     return (
         <div className='w-full h-full flex justify-center'>
-            <div class="max-w-sm rounded overflow-hidden shadow">
+            <div className="max-w-sm rounded overflow-hidden shadow">
                 <div className="w-full h-32 flex justify-center items-center">
                     {result}
                 </div>
-                <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">Counter</div>
-                    <p class="text-gray-700 text-base">
+                <div className="px-6 py-4">
+                    <div className="font-bold text-xl mb-2">Counter</div>
+                    <p className="text-gray-700 text-base">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                     </p>
                 </div>
-                <div class="px-6 pt-4 pb-2 flex justify-center">
-                    <span class="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={() => setResult((prev) => Number(prev) + Number(factor))} >+ {factor}</span>
-                    <span class="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={() => setResult((prev) => Number(prev) - Number(factor))}>- {factor}</span>
-                    <span class="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={() => setResult((prev) => Number(prev) * Number(factor))}>* {factor}</span>
-                    <span class="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={() => setResult((prev) => Number(prev) ** Number(factor))}>** {factor}</span>
-                    <span class="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={handleReset}>Reset</span>
+                <div className="px-6 pt-4 pb-2 flex justify-center">
+                    <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={() => setResult((prev) => Number(prev) + Number(factor))} >+ {factor}</span>
+                    <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={() => setResult((prev) => Number(prev) - Number(factor))}>- {factor}</span>
+                    <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={() => setResult((prev) => Number(prev) * Number(factor))}>* {factor}</span>
+                    <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={() => setResult((prev) => Number(prev) ** Number(factor))}>** {factor}</span>
+                    <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-sky-200 cursor-pointer" onClick={handleReset}>Reset</span>
                 </div>
-                <div class="px-6 pt-4 pb-2 flex flex-col">
+                <div className="px-6 pt-4 pb-2 flex flex-col">
                     <input
                         type="number"
                         name="first-name"
