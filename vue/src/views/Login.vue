@@ -8,7 +8,7 @@
                 </div>
                 <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
             </div>
-            <form class="mt-8 space-y-6" v-on:onSubmit="handleSubmit">
+            <form class="mt-8 space-y-6" @submit.prevent="handleSubmit">
                 <input type="hidden" name="remember" value="true" />
 
                 <div class="-space-y-px rounded-md shadow-sm">
@@ -24,7 +24,7 @@
                         <input id="password" name="password" type="password" v-model="form.password"
                             class="relative block w-full rounded border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-1 focus:ring-inset focus:ring-emerald-400 sm:text-sm sm:leading-6"
                             placeholder="Password" />
-                        <span className='text-red-500 text-sm'>{{ formError.password.password }}</span>
+                        <span className='text-red-500 text-sm'>{{ formError.password.message }}</span>
                     </div>
                 </div>
 
@@ -49,15 +49,26 @@
   
 <script setup>
 import { reactive, ref } from 'vue';
+import FormValidation from '../providers/FormValidation';
 
 const form = reactive({ email: "", password: "" });
 const formError = reactive({ email: { error: false, message: "" }, password: { error: false, message: "" } });
 const rememberMe = ref(false);
 
-function handleSubmit(e) {
-    e.preventDefault();
-    console.log(form);
-    console.log(rememberMe.value)
+function handleSubmit() {
+
+    const obj = new FormValidation(form, formError);
+    const { validation, is_valid } = obj.exec();
+
+    Object.assign(formError, validation)
+
+    if (is_valid) {
+        localStorage.setItem("vue.auth", {
+            name: "Guest",
+            email: form.email
+        });
+        router.push({ path: 'counter' })
+    }
 }
 
 </script>
