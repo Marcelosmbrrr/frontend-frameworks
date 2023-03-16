@@ -5,8 +5,8 @@ import { useMenuOpen } from '../../context/MenuOpen';
 import { Outlet } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Header } from './header';
-import { Sidebar } from './sidebar';
+import { Header } from './Header';
+import { Sidebar } from './Sidebar';
 
 export function Layout() {
 

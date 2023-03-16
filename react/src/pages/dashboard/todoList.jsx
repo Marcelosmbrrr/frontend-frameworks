@@ -54,7 +54,7 @@ export function TodoList() {
         setForm(initialForm);
     }
 
-    const renderList = React.useMemo(() => {
+    function renderList() {
         return (
             list.map((item, index) =>
                 <div className="w-full h-10 py-1 rounded-sm flex items-center mb-1 bg-white" key={item.id}>
@@ -73,7 +73,7 @@ export function TodoList() {
                 </div>
             )
         )
-    }, [list]);
+    }
 
     return (
         <div className='w-full h-full flex flex-col rounded shadow'>
