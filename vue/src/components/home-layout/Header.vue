@@ -27,14 +27,16 @@
 </template>
 
 <script setup>
+import { useAuth } from '../../store';
+
+const store = useAuth();
 
 function handleMenuToggle() {
     console.log('menu toggle');
 }
 
 function handleLogout() {
-    localStorage.removeItem("vue.auth");
-    router.push({ path: 'login' })
+    store.logout();
 }
 
 </script>

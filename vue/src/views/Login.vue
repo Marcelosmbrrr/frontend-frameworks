@@ -50,10 +50,12 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import FormValidation from '../providers/FormValidation';
+import { useAuth } from '../store/index';
 
 const form = reactive({ email: "", password: "" });
 const formError = reactive({ email: { error: false, message: "" }, password: { error: false, message: "" } });
 const rememberMe = ref(false);
+const store = useAuth();
 
 function handleSubmit() {
 
@@ -63,11 +65,7 @@ function handleSubmit() {
     Object.assign(formError, validation)
 
     if (is_valid) {
-        localStorage.setItem("vue.auth", {
-            name: "Guest",
-            email: form.email
-        });
-        router.push({ path: 'counter' })
+        store.login(form);
     }
 }
 

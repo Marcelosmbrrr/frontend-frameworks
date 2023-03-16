@@ -3,6 +3,10 @@ import './style.css'
 import App from './App.vue';
 import router from './routes/index';
 
+// Pinia
+import { createPinia } from 'pinia'
+const pinia = createPinia();
+
 // Vuetify
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
@@ -20,6 +24,7 @@ import { faGear, faDoorOpen, faBell, faBars } from '@fortawesome/free-solid-svg-
 library.add(faGear, faDoorOpen, faBell, faBars);
 
 const app = createApp(App);
+app.use(pinia);
 app.use(vuetify);
 app.use(router);
 app.mount('#app');
