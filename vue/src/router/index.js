@@ -19,10 +19,7 @@ const router = createRouter({
         {
             path: '/dashboard',
             name: 'DASHBOARD',
-            component: () => import("../views/Dashboard.vue"),
-            meta: {
-                layout: Layout
-            }
+            component: () => import("../components/home-layout/Layout.vue")
         },
         {
             path: '/counter',

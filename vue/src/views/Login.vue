@@ -35,12 +35,14 @@
                         <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
                     </div>
                 </div>
-
                 <div>
                     <button type="submit"
                         class="group relative flex w-full justify-center rounded-md bg-emerald-600 py-2 px-3 text-sm font-semibold text-white hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
                         Sign in
                     </button>
+                </div>
+                <div v-if="alert.show">
+                    <Alert :message="alert.message" />
                 </div>
             </form>
         </div>
@@ -49,11 +51,13 @@
   
 <script setup>
 import { reactive, ref } from 'vue';
+import Alert from '../components/Alert.vue';
 import FormValidation from '../providers/FormValidation';
 import { useAuth } from '../store/index';
 
 const form = reactive({ email: "", password: "" });
 const formError = reactive({ email: { error: false, message: "" }, password: { error: false, message: "" } });
+const alert = reactive({ show: false, message: "" });
 const rememberMe = ref(false);
 const store = useAuth();
 
@@ -62,11 +66,16 @@ function handleSubmit() {
     const obj = new FormValidation(form, formError);
     const { validation, is_valid } = obj.exec();
 
-    Object.assign(formError, validation)
+    Object.assign(formError, validation);
 
-    if (is_valid) {
-        store.login(form);
+    if (!is_valid) {
+        Object.assign(alert, { show: true, message: "Data is invalid!" });
+        return;
     }
+
+    Object.assign(alert, { show: false, message: "" });
+    store.login(form);
+
 }
 
 </script>

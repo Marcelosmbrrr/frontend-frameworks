@@ -9,9 +9,12 @@
                     <span>Subtitle</span>
                 </div>
                 <div class='self-start h-full w-full'>
+                    <!-- 
                     <component :is="$router.meta.layout">
                         <RouterView />
                     </component>
+                    -->
+                    OK
                 </div>
             </div>
         </main>
