@@ -9,25 +9,10 @@ module.exports = {
       boxShadow: {
         "card": "rgba(0, 0, 0, 0.16) 0px 1px 4px"
       },
-      fontSize: {
-        "header_title": "25px",
-        "page_title": "28px"
-      },
-      width: {
-        "header": "95%"
-      },
       height: {
-        "dash_card": "192px",
-        "sidebar": "calc()"
-      },
-      gridTemplateColumns: {
-        "header": "repeat(2, min-content) 1fr",
-        "main": "130px 1fr",
-        "table_head": "repeat(3, max-content) 1fr"
+        "dash_card": "192px"
       },
       gridTemplateRows: {
-        "sidebar_items": "repeat(5, 105px) 1fr",
-        "content": "75px 1fr",
         "min_dash": "768px 192px",
         "sm_dash": "384px 450px",
         "md_dash": "384px 450px",

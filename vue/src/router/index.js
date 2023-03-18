@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Layout from '../components/home-layout/Layout.vue';
+import { TokenValidation } from '../providers/TokenValidation';
+import HomeLayout from '../layouts/HomeLayout.vue';
+import BlankLayout from '../layouts/BlankLayout.vue';
 
-// Source: https://www.youtube.com/watch?v=juocv4AtrHo
-// About lazy loading routes: https://router.vuejs.org/guide/advanced/lazy-loading.html
-
+// Vue Router
+// https://router.vuejs.org/guide/
+// This way to import components is lazy loading: https://router.vuejs.org/guide/advanced/lazy-loading.html
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
+    linkActiveClass: "active-route",
     routes: [
         {
             path: '/',
@@ -14,19 +17,28 @@ const router = createRouter({
         {
             path: '/login',
             name: 'LOGIN',
-            component: () => import("../views/Login.vue")
+            component: () => import("../views/Login.vue"),
+            meta: {
+                requireAuth: false,
+                layout: BlankLayout
+            }
         },
         {
             path: '/dashboard',
             name: 'DASHBOARD',
-            component: () => import("../components/home-layout/Layout.vue")
+            component: () => import("../views/Dashboard.vue"),
+            meta: {
+                requireAuth: true,
+                layout: HomeLayout
+            }
         },
         {
             path: '/counter',
             name: 'COUNTER',
             component: () => import("../views/Counter.vue"),
             meta: {
-                layout: Layout
+                requireAuth: true,
+                layout: HomeLayout
             }
         },
         {
@@ -34,7 +46,8 @@ const router = createRouter({
             name: 'TODOLIST',
             component: () => import("../views/TodoList.vue"),
             meta: {
-                layout: Layout
+                requireAuth: true,
+                layout: HomeLayout
             }
         },
         {
@@ -42,7 +55,8 @@ const router = createRouter({
             name: 'TABLE',
             component: () => import("../views/Table.vue"),
             meta: {
-                layout: Layout
+                requireAuth: true,
+                layout: HomeLayout
             }
         },
         {
@@ -50,10 +64,35 @@ const router = createRouter({
             name: 'PROFILE',
             component: () => import("../views/Profile.vue"),
             meta: {
-                layout: Layout
+                requireAuth: true,
+                layout: HomeLayout
             }
-        }
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'NotFound',
+            component: () => import("../views/NotFound.vue"),
+            layout: BlankLayout
+        },
     ]
 });
+
+// Navigation Guards
+// https://router.vuejs.org/guide/advanced/navigation-guards.html
+router.beforeEach(async (to, from, next) => {
+
+    if (to.meta.requireAuth) {
+        const validation = new TokenValidation();
+
+        if (!validation.exec()) {
+            router.push("/login");
+        } else {
+            next();
+        }
+
+    }
+    else next();
+
+})
 
 export default router;

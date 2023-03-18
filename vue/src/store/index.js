@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
 import { reactive, ref } from 'vue';
 import router from '../router';
+import Cookies from 'js-cookie';
 
+// Vue Context/Store
 // https://pinia.vuejs.org/core-concepts/
 // Similar to the Vue Composition API's setup function, we can pass in a function that defines reactive properties and methods and returns an object with the properties and methods we want to expose.
 
@@ -32,10 +34,10 @@ export const useAuth = defineStore('auth', () => {
     async function login(form) {
         try {
 
-            localStorage.setItem("vue.token", {
+            Cookies.set('vue.token', JSON.stringify({
                 name: "Guest",
                 email: form.email
-            });
+            }), { expires: 1 });
 
             router.push({ path: 'dashboard' });
 
@@ -46,7 +48,8 @@ export const useAuth = defineStore('auth', () => {
     }
 
     async function logout() {
-        localStorage.removeItem("vue.token");
+
+        Cookies.remove('vue.token');
         router.push({ path: 'login' });
     }
 
