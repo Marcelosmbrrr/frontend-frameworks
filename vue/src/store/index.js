@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { reactive, ref } from 'vue';
 import router from '../router';
 import Cookies from 'js-cookie';
+import { TokenValidation } from '../providers/TokenValidation';
 
 // Vue Context/Store
 // https://pinia.vuejs.org/core-concepts/
@@ -11,19 +12,20 @@ import Cookies from 'js-cookie';
 
 export const useAuth = defineStore('auth', () => {
 
-    const user = reactive({ name: "", email: "", role: "", created_at: "" });
+    const user = reactive({ name: "", email: "", password: "", role: "", last_access: "" });
     const is_authenticated = ref(false);
 
     async function handleVerify() {
         try {
 
-            const token = localStorage.getItem("vue.token");
+            const validation = new TokenValidation();
+            validation.exec();
 
-            if (!token) {
+            if (!validation.exec()) {
                 throw new Error("Unauthenticated.");
             }
 
-            Object.assign(user, JSON.parse(token));
+            Object.assign(user, validation.tokenParsed());
 
         } catch (e) {
             console.log(e);
@@ -35,8 +37,11 @@ export const useAuth = defineStore('auth', () => {
         try {
 
             Cookies.set('vue.token', JSON.stringify({
-                name: "Guest",
-                email: form.email
+                name: "Cleiton",
+                email: form.email,
+                password: form.password,
+                role: "Admin",
+                last_access: new Date().toLocaleString()
             }), { expires: 1 });
 
             router.push({ path: 'dashboard' });

@@ -19,10 +19,16 @@
 </template>
 
 <script setup>
+import * as Vue from 'vue';
 import HeaderVue from '../components/Header.vue';
 import SidebarVue from '../components/Sidebar.vue';
 import { useMenu } from '../store';
+import { useAuth } from '../store';
 
-const store = useMenu();
+const menuStore = useMenu();
+const authStore = useAuth();
 
+Vue.onMounted(() => {
+    authStore.handleVerify();
+});
 </script>
