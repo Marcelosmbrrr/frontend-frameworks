@@ -54,10 +54,4 @@
 </template>
 
 <script setup>
-import * as Vue from 'vue';
-
-function handleChangePage() {
-    console.log('change page');
-}
-
 </script>

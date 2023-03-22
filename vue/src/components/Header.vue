@@ -30,15 +30,17 @@
 
 <script setup>
 import { useAuth } from '../store';
+import { useMenu } from '../store';
 
-const store = useAuth();
+const authStore = useAuth();
+const menuStore = useMenu();
 
 function handleMenuToggle() {
-    console.log('menu toggle');
+    menuStore.handleToggle();
 }
 
 function handleLogout() {
-    store.logout();
+    authStore.logout();
 }
 
 </script>

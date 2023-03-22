@@ -1,8 +1,8 @@
 <template>
     <div class='flex flex-col h-screen'>
         <HeaderVue />
-        <main class="grow grid grid-cols-[130px_1fr]">
-            <SidebarVue />
+        <main class="grow grid" :class="{ 'grid-cols-[130px_1fr]': menuStore.open }">
+            <SidebarVue v-if="menuStore.open" />
             <div class="grid grid-rows-[75px_1fr] gap-5 px-10 py-5">
                 <div class='flex flex-col'>
                     <h1 class='text-gray-600 text-[28px]'>{{ $route.name }}</h1>

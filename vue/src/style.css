@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.active-route{
+.active-route {
     color: #42D392;
 }
