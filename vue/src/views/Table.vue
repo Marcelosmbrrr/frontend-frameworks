@@ -22,6 +22,9 @@
                                 Name
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Username
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Email
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -33,7 +36,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in users" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <!-- Use :key to track each node's identity, like as React -->
+                        <tr v-for="user in users" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                            :key="user.id">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ user.id }}
                             </th>
@@ -44,14 +49,22 @@
                                 {{ user.username }}
                             </td>
                             <td class="px-6 py-4">
+                                {{ user.email }}
+                            </td>
+                            <td class="px-6 py-4">
                                 {{ user.password }}
                             </td>
                             <td class="px-6 py-4 flex">
+                                <!-- https://vuejs.org/guide/components/props.html#prop-passing-details  -->
                                 <div class="mr-2">
-                                    <EditUser :id="user.id" :name="user.firstName" :username="user.username" :password="user.password" />
+                                    <span
+                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                                        @click="handleSelection({ op: 'update', user: user })">Edit</span>
                                 </div>
                                 <div>
-                                    <DeleteUser :id="user.id" />
+                                    <span
+                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                                        @click="handleSelection({ op: 'delete', user: user })">Delete</span>
                                 </div>
                             </td>
                         </tr>
@@ -91,7 +104,10 @@
                         </li>
                     </ul>
                 </nav>
-
+                <EditUser v-if="selected.op === 'update'" :identifier="selected.user.id" :username="selected.user.username"
+                    :firstName="selected.user.firstName" :email="selected.user.email" :password="selected.user.password"
+                    @close="handleCloseModal" />
+                <DeleteUser v-if="selected.op === 'delete'" :identifier="selected.user.id" @close="handleCloseModal" />
             </div>
         </div>
     </component>
@@ -105,9 +121,15 @@ import axios from 'axios';
 
 const initialUsers = [];
 const initialPaginate = { limit: 10, page: 1, search: "" };
+const initialSelected = { op: 'none', user: {} };
 
 const users = Vue.ref([]);
-const paginate = Vue.reactive({ limit: 10, page: 1, search: "" });
+const paginate = Vue.reactive(initialPaginate);
+const selected = Vue.reactive(initialSelected);
+
+Vue.watch(selected, (value) => {
+    console.log(value);
+});
 
 Vue.onMounted(async () => {
     Object.assign(paginate, initialPaginate);
@@ -120,7 +142,7 @@ async function handleFetchData() {
 
         const offset = paginate.page * paginate.limit - paginate.limit;
 
-        const response = axios.get(`https://dummyjson.com/users/${paginate.search}?limit=${paginate.limit}&skip=${offset}&select=id,firstName,username,password,image`);
+        const response = axios.get(`https://dummyjson.com/users/${paginate.search}?limit=${paginate.limit}&skip=${offset}&select=id,email,firstName,username,password,image`);
         users.value = (await response).data.users;
 
     } catch (e) {
@@ -148,6 +170,14 @@ function handlePrevPage() {
         });
     }
     handleFetchData();
+}
+
+function handleSelection(selection) {
+    Object.assign(selected, selection);
+}
+
+function handleCloseModal() {
+    Object.assign(selected, initialSelected);
 }
 
 </script>
