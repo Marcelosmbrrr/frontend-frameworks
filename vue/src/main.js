@@ -21,8 +21,8 @@ const vuetify = createVuetify({
 // Fontawesome core 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faGear, faDoorOpen, faBell, faBars, faGauge, faCalculator, faList, faTable, faUser } from '@fortawesome/free-solid-svg-icons';
-library.add(faGear, faDoorOpen, faBell, faBars, faGauge, faCalculator, faList, faTable, faUser);
+import { faGear, faDoorOpen, faBell, faBars, faGauge, faCalculator, faList, faTable, faUser, faExclamation, faPen } from '@fortawesome/free-solid-svg-icons';
+library.add(faGear, faDoorOpen, faBell, faBars, faGauge, faCalculator, faList, faTable, faUser, faExclamation, faPen);
 
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);

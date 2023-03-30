@@ -104,10 +104,16 @@
                         </li>
                     </ul>
                 </nav>
-                <EditUser v-if="selected.op === 'update'" :identifier="selected.user.id" :username="selected.user.username"
-                    :firstName="selected.user.firstName" :email="selected.user.email" :password="selected.user.password"
-                    @close="handleCloseModal" />
-                <DeleteUser v-if="selected.op === 'delete'" :identifier="selected.user.id" @close="handleCloseModal" />
+
+                <TransitionRoot as="template" :show="selected.op === 'update'">
+                    <EditUser :identifier="selected.user.id" :username="selected.user.username"
+                        :firstName="selected.user.firstName" :email="selected.user.email" :password="selected.user.password"
+                        @close="handleCloseModal" />
+                </TransitionRoot>
+
+                <TransitionRoot as="template" :show="selected.op === 'delete'">
+                    <DeleteUser @close="handleCloseModal" :identifier="selected.user.id" />
+                </TransitionRoot>
             </div>
         </div>
     </component>
@@ -115,24 +121,21 @@
 
 <script setup>
 import * as Vue from 'vue';
+import { TransitionRoot } from '@headlessui/vue';
 import EditUser from '../components/formulary/users/EditUser.vue';
 import DeleteUser from '../components/formulary/users/DeleteUser.vue';
 import axios from 'axios';
 
 const initialUsers = [];
-const initialPaginate = { limit: 10, page: 1, search: "" };
-const initialSelected = { op: 'none', user: {} };
+const initialPaginate = JSON.stringify({ limit: 10, page: 1, search: "" });
+const initialSelected = JSON.stringify({ op: 'none', user: {} });
 
 const users = Vue.ref([]);
-const paginate = Vue.reactive(initialPaginate);
-const selected = Vue.reactive(initialSelected);
-
-Vue.watch(selected, (value) => {
-    console.log(value);
-});
+const paginate = Vue.reactive(JSON.parse(initialPaginate));
+const selected = Vue.reactive(JSON.parse(initialSelected));
 
 Vue.onMounted(async () => {
-    Object.assign(paginate, initialPaginate);
+    Object.assign(paginate, JSON.parse(initialPaginate));
     users.value = initialUsers;
     handleFetchData();
 });
@@ -177,7 +180,7 @@ function handleSelection(selection) {
 }
 
 function handleCloseModal() {
-    Object.assign(selected, initialSelected);
+    Object.assign(selected, JSON.parse(initialSelected));
 }
 
 </script>
