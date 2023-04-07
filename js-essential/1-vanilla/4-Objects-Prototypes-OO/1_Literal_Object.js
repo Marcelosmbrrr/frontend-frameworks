@@ -8,15 +8,19 @@ const person = {
     setName: (new_value) => {
         this.name = new_value;
     },
-    getAge: () => {
-        return new Date().getFullYear() - this.born_at;
+    get getAge() {
+        return `Person age: ${new Date().getFullYear() - this.born_at}`;
+    },
+    exampleMethod() {
+        console.log('Method without a keyname.')
     }
 };
 
 console.log(person.name);
-console.log(person.getAge());
+console.log(person.getAge);
 person.attrObj["new_attr"] = 50;
 console.log(person.attrObj.new_attr);
+person.exampleMethod();
 
 // What is "this"?
 // The this keyword refers to the current object the code is being written inside
