@@ -1,0 +1,4 @@
+Javascript: https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript
+Typescript: https://www.typescriptlang.org/docs/handbook/intro.html
+React: https://react.dev/learn
+Vue: https://vuejs.org/guide/introduction.html
