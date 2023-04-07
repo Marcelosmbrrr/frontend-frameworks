@@ -1,0 +1,19 @@
+==== What is JavaScript? ====
+
+1 - JavaScript is a high-level and single-threaded (only one command is performed at a time) programming language. When we refer to a programming language as high-level, we mean that it has a high level of abstraction. Type checking happens in real-time.
+2 - JavaScript has a blocking and synchronous nature. The code runs in the order it appears, and each section of code must complete running before moving on to the next. Therefore, it is still possible to execute applications asynchronously and without blocking.
+
+==== Components of JavaScript ====
+
+1 - JavaScript is an interpreted programming language. Does not require compilation into binary code before execution.
+2 - The JavaScript engine is responsible for executing JavaScript code, , allowing the computer running the code to understand it without the need for interpreting.
+3 - All current Internet browsers include the JavaScript engine by default.
+4 - Every browser has its own JavaScript engine, however, the Chrome V8 engine is one of the most well-known JavaScript engines.
+
+==== Runtime Environments ==== 
+
+1 - Browser’s runtime environment: the most common place where JavaScript code is executed is in a browser, as a frontend resource, and with access to all of its APIS.
+2 - NodeJS runtime environment: node was created to enable developers to use Javascript code without a browser. Node is an entirely different runtime environment and gives access to a variety of features unavailable in a browser.
+
+
+
