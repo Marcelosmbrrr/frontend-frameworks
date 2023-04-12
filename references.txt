@@ -1,5 +1,19 @@
+==== LANGUAGES ====
+
 Javascript: https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript
 Typescript: https://www.typescriptlang.org/docs/handbook/intro.html
+
+==== FRAMEWORKS ====
 React: https://react.dev/learn
+Next: https://nextjs.org/
 Vue: https://vuejs.org/guide/introduction.html
+Nuxt: 
+
+==== TESTING ==== 
 React/Vue testing: https://vitest.dev/guide/
+
+==== OTHER USED RESOURCES ====
+
+Planet Scale: https://planetscale.com/ 
+Prisma: https://www.prisma.io/
+Planet Scale + Prisma: https://planetscale.com/docs/tutorials/prisma-quickstart
