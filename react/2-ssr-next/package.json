@@ -1,6 +1,9 @@
 {
   "name": "2-ssr-next",
   "private": true,
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -8,13 +11,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@hookform/resolvers": "^3.0.1",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.0",
     "@prisma/client": "^4.12.0",
+    "@react-spring/web": "^9.7.2",
+    "axios": "^1.3.5",
     "next": "13.3.0",
+    "nookies": "^2.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "recharts": "^2.5.0",
     "yup": "^1.0.2"
   },
   "devDependencies": {
