@@ -81,3 +81,9 @@ export default function Roles() {
         </HomeLayout>
     )
 }
+
+export async function getServerSideProps(context) {
+    return {
+        props: {}, 
+    }
+}

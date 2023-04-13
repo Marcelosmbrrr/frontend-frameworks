@@ -82,3 +82,9 @@ export default function Dashboard() {
         </HomeLayout>
     )
 }
+
+export async function getStaticProps(context) {
+    return {
+        props: {}, 
+    }
+}

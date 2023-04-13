@@ -87,3 +87,9 @@ export default function Products() {
         </HomeLayout>
     )
 }
+
+export async function getServerSideProps(context) {
+    return {
+        props: {}, 
+    }
+}

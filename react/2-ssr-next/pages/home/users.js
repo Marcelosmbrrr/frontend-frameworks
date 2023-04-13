@@ -92,3 +92,9 @@ export default function Users() {
         </HomeLayout>
     )
 }
+
+export async function getServerSideProps(context) {
+    return {
+        props: {}, 
+    }
+}

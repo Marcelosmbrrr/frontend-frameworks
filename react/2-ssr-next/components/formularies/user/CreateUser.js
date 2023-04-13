@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 export function CreateUser() {
 
-    const [isOpen, setIsOpen] = React.useState(true)
+    const [isOpen, setIsOpen] = React.useState(false)
 
     function closeModal() {
         setIsOpen(false);
