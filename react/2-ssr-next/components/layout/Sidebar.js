@@ -15,7 +15,7 @@ export function Sidebar() {
         { id: 1, to: "dashboard", icon: <SpaceDashboardIcon style={{ color: '#7dd3fc' }} />, isActive: router.pathname === "/home/dashboard" },
         { id: 2, to: "users", icon: <GroupIcon style={{ color: '#7dd3fc' }} />, isActive: router.pathname === "/home/users" },
         { id: 3, to: "roles", icon: <BadgeIcon style={{ color: '#7dd3fc' }} />, isActive: router.pathname === "/home/roles" },
-        { id: 4, to: "products", icon: <AllInboxIcon style={{ color: '#7dd3fc' }} />, isActive: router.pathname === "/home/products" },
+        { id: 4, to: "posts", icon: <AllInboxIcon style={{ color: '#7dd3fc' }} />, isActive: router.pathname === "/home/posts" },
         { id: 5, to: "myprofile", icon: <AccountBoxIcon style={{ color: '#7dd3fc' }} />, isActive: router.pathname === "/home/myprofile" }
     ]
 

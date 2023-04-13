@@ -6,8 +6,34 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  relationMode      = "prisma"
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int // FK field
+
+  @@map("posts")
+}
+
+model Role {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  users      User[] // Has many users
+  created_at DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  deleted    Boolean  @default(false)
+
+  @@map("roles")
 }
 
 model User {
@@ -17,35 +43,22 @@ model User {
   email        String         @unique
   password     String
   created_at   DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   deleted      Boolean        @default(false)
   role         Role           @relation(fields: [roleId], references: [id]) // FK definition
   roleId       Int // FK field
   RefreshToken RefreshToken[] // Has many tokens
+  posts        Post[] // Has many posts
+
   @@map("users")
-}
-
-model Role {
-  id         Int      @id @default(autoincrement())
-  name       String   @unique
-  users      User[] // Has many users
-  created_at DateTime @default(now())
-  deleted    Boolean  @default(false)
-  @@map("roles")
-}
-
-model Product {
-  id         Int      @id @default(autoincrement())
-  name       String   @unique
-  created_at DateTime @default(now())
-  deleted    Boolean  @default(false)
-  @@map("products")
 }
 
 model RefreshToken {
   id        String  @id @default(uuid())
   expiresIn Int
-  deleted      Boolean        @default(false)
-  user      User    @relation(fields: [userId], references: [id])
-  userId    Int     // has only one user
+  deleted   Boolean @default(false)
+  user      User    @relation(fields: [userId], references: [id]) // FK definition
+  userId    Int // Has one user
+
   @@map("refresh_token")
 }

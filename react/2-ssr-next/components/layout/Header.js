@@ -15,7 +15,7 @@ export function Header(props) {
     }
 
     return (
-        <div className='flex flex-row items-center justify-between bg-stone-900 basis-14 border border-gray-700'>
+        <div className='flex flex-row items-center justify-between bg-stone-900 min-h-[54px] border border-gray-700'>
 
             <div className='grid grid-cols-[64px_auto]'>
                 <div className='flex justify-center items-center rounded transition-all cursor-pointer'>

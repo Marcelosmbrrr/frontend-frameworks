@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { HomeLayout } from '../../components/layout/HomeLayout';
 
-export default function Products() {
+export default function Posts() {
 
     const [products, setProducts] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
@@ -15,7 +15,7 @@ export default function Products() {
 
                 <div class="flex justify-between items-center w-full border-b border-gray-700 py-3">
                     <div className='pl-2'>
-                        <span className='text-white text-[20px]'>PRODUCTS</span>
+                        <span className='text-white text-[20px]'>POSTS</span>
                     </div>
                     <div className='flex items-center'>
                         <div>
