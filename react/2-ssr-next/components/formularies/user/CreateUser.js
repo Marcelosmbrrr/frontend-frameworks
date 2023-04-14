@@ -16,7 +16,7 @@ export function CreateUser() {
 
     return (
         <>
-            <button type="button" class="flex items-center text-white bg-sky-700 hover:bg-sky-800 focus:ring-sky-300 font-medium rounded text-sm px-3 py-1.5 mr-2" onClick={openModal}>
+            <button type="button" className="flex items-center text-white bg-sky-700 hover:bg-sky-800 focus:ring-sky-300 font-medium rounded text-sm px-3 py-1.5 mr-2" onClick={openModal}>
                 <AddIcon /> <span className='ml-2'>Create</span>
             </button>
 

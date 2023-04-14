@@ -40,12 +40,12 @@ export default function Home() {
             >
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your email</label>
-                <input type="email" name="email" id="email" {...register('email')} className={`bg-gray-50 border ${errors.email ? 'border-red-300' : 'border-gray-300'} outline-none text-gray-900 sm:text-sm rounded-lg block w-full p-2.5`} placeholder="name@company.com" required="" />
+                <input type="email" name="email" id="email" {...register('email')} className={`bg-gray-50 border ${errors.email ? 'border-red-300' : 'border-gray-300'} outline-none text-gray-900 sm:text-sm rounded-lg block w-full p-2.5`} placeholder="name@company.com" />
                 {errors.email && <span className='text-sm text-red-300'>{errors.email.message}</span>}
               </div>
               <div>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Password</label>
-                <input type="password" name="password" id="password" {...register('password')} placeholder="••••••••" className={`bg-gray-50 border ${errors.password ? 'border-red-300' : 'border-gray-300'} outline-none text-gray-900 sm:text-sm rounded-lg block w-full p-2.5`} required="" />
+                <input type="password" name="password" id="password" {...register('password')} placeholder="••••••••" className={`bg-gray-50 border ${errors.password ? 'border-red-300' : 'border-gray-300'} outline-none text-gray-900 sm:text-sm rounded-lg block w-full p-2.5`} />
                 {errors.password && <span className='text-sm text-red-300'>{errors.password.message}</span>}
               </div>
               <div className="flex items-center justify-between">

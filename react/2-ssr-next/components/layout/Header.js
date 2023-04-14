@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Router from 'next/router';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -7,7 +8,7 @@ import NightlightIcon from '@mui/icons-material/Nightlight';
 export function Header(props) {
 
     function handleLogout() {
-        console.log('logout')
+        Router.push("/login");
     }
 
     function handleMenuClick() {

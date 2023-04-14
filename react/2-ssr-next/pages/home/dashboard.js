@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { HomeLayout } from '../../components/layout/HomeLayout';
 import { HorizontalChart } from '../../components/charts/HorizontalChart';
+import { DashboardController } from '../../controllers/modules/dashboard/DashboardController';
 
-export default function Dashboard() {
+export default function Dashboard(props) {
+
+    const [data, setData] = React.useState(props.data);
+
     return (
         <HomeLayout>
             <div className='w-full p-2 grid grid-cols-1 grid-rows-3 md:grid-cols-2 md:grid-rows-2  gap-2'>
@@ -83,8 +87,17 @@ export default function Dashboard() {
     )
 }
 
-export async function getStaticProps(context) {
+/* Next server side */
+/* You should use getServerSideProps only if you need to render a page whose data must be fetched at request time */
+/* If the data is fetched from Next Api routes, directly import the logic here - because you are already in server side */
+export async function getServerSideProps(context) {
+
+    const controller = new DashboardController();
+    const response = controller.index(10, 1, null);
+
     return {
-        props: {}, 
+        props: {
+            data: []
+        }
     }
 }

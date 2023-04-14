@@ -14,13 +14,14 @@ datasource db {
 
 model Post {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
   content   String?
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int // FK field
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
 
   @@map("posts")
 }
@@ -28,6 +29,7 @@ model Post {
 model Role {
   id         Int      @id @default(autoincrement())
   name       String   @unique
+  access     String
   users      User[] // Has many users
   created_at DateTime @default(now())
   updatedAt  DateTime @updatedAt

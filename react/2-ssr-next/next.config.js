@@ -1,6 +1,5 @@
 module.exports = {
   reactStrictMode: true,
-  env: {},
   async redirects() {
     return [
       {
