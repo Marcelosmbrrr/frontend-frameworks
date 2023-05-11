@@ -14,6 +14,7 @@ React/Vue testing: https://vitest.dev/guide/
 
 ==== OTHER USED RESOURCES ====
 
-Planet Scale: https://planetscale.com/ 
+Tailwind CSS: https://tailwindcss.com/
+Planet Scale: https://planetscale.com/ - Pscale CLI https://github.com/planetscale/cli#installation - https://www.youtube.com/watch?v=ZDSiAwuoX0c
 Prisma: https://www.prisma.io/
-Planet Scale + Prisma: https://planetscale.com/docs/tutorials/prisma-quickstart
+Nookies (nextjs cookies): https://github.com/maticzav/nookies

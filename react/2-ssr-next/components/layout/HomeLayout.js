@@ -1,27 +1,21 @@
 import * as React from 'react';
-import { useTransition, animated } from '@react-spring/web';
 import { Header } from './Header';
-import { Sidebar } from './Sidebar';
+import { Footer } from './Footer';
+import { Sidenav } from './Sidenav';
 
 export function HomeLayout({ children }) {
-
-    const [openMenu, setOpenMenu] = React.useState(true);
-
-    function handleMenuClick() {
-        setOpenMenu((prev) => !prev);
-    }
-
     return (
-        <div className='flex flex-col h-screen w-screen overflow-hidden bg-stone-900'>
-            <Header handleMenuClick={handleMenuClick} />
-            <div className='w-full grow flex flex-row'>
-                {openMenu && <Sidebar />}
-                <div className='flex flex-col grow'>
-                    <div>
+        <section id="layout-container" className='w-screen h-screen flex flex-col'>
+            <Header />
+            <div className='grow w-full flex flex-row'>
+                <Sidenav />
+                <div className='grow h-full flex flex-col'>
+                    <div id="page-content" className='grow w-full'>
                         {children}
                     </div>
+                    <Footer />
                 </div>
             </div>
-        </div>
+        </section>
     )
-}
+} 

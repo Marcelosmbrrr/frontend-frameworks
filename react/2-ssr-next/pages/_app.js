@@ -1,7 +1,28 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import { AuthProvider } from '../context/AuthContext';
+import { ThemeProvider } from '../context/ThemeContext';
+import { HomeLayout } from '../components/layout/HomeLayout';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+
+function AppWrapper({ children, isHome = false }) {
+  return (
+    <AuthProvider>
+      <ThemeProvider>
+        {isHome ? <HomeLayout>{children}</HomeLayout> : children}
+      </ThemeProvider>
+    </AuthProvider>
+  );
+}
+
+function MyApp({ Component, pageProps, router }) {
+
+  const isHome = router.pathname.startsWith('/home');
+
+  return (
+    <AppWrapper isHome={isHome}>
+      <Component {...pageProps} />
+    </AppWrapper>
+  );
 }
 
 export default MyApp

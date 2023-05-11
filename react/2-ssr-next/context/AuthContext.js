@@ -1,33 +1,27 @@
-
 import * as React from 'react';
-import Router from 'next/router';
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
-import { env } from '@/next.config';
-import { axios } from '@/services/api';
+import { useRouter } from 'next/router';
+import axios from '../services/api';
 
 export const AuthContext = React.createContext({});
 
 export function AuthProvider({ children }) {
 
+    const { asPath } = useRouter();
     const [user, setUser] = React.useState(null);
-
     const isAuthenticated = !!user;
 
-    // when app refresh
     React.useEffect(() => {
-
-        // verify if is an internal pathname
-        // verify authentication
-        console.log('reload - verify authentication');
-
+        if(/\/home\b/.test(asPath)){
+            // verify authentication 
+        }
     }, []);
 
-    async function login(form) {
+    async function login(data) {
         try {
 
-           // login -> create refresh token and access token
-           // set client cookie with access token
-           // return response
+            // login -> create refresh token and access token
+            // set client cookie with access token
+            // return response
 
         } catch (error) {
             console.log(error)
@@ -38,14 +32,14 @@ export function AuthProvider({ children }) {
     async function logout() {
         try {
 
-            // get cookie (access token)
-            // logout -> invalidate refresh token
-            // destroy client cookie (access token)
+            // login -> create refresh token and access token
+            // set client cookie with access token
             // return response
 
-        } catch (e) {
-            console.log(e)
-        } 
+        } catch (error) {
+            console.log(error)
+            throw error;
+        }
     }
 
     return (
@@ -53,10 +47,8 @@ export function AuthProvider({ children }) {
             {children}
         </AuthContext.Provider>
     )
-
 }
 
-// Hook
 export function useAuth() {
     return React.useContext(AuthContext);
 }
