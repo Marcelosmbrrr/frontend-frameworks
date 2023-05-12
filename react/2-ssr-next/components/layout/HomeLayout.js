@@ -5,7 +5,7 @@ import { Sidenav } from './Sidenav';
 
 export function HomeLayout({ children }) {
     return (
-        <section id="layout-container" className='w-screen h-screen flex flex-col'>
+        <section id="layout-container" className='bg-gray-50 dark:bg-gray-900 w-screen h-screen flex flex-col'>
             <Header />
             <div className='grow w-full flex flex-row'>
                 <Sidenav />
@@ -13,7 +13,6 @@ export function HomeLayout({ children }) {
                     <div id="page-content" className='grow w-full'>
                         {children}
                     </div>
-                    <Footer />
                 </div>
             </div>
         </section>
