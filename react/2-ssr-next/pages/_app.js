@@ -1,4 +1,7 @@
 import '../styles/globals.css';
+// Mui
+import { SnackbarProvider } from 'notistack';
+// Custom
 import { AuthProvider } from '../context/AuthContext';
 import { ThemeProvider } from '../context/ThemeContext';
 import { HomeLayout } from '../components/layout/HomeLayout';
@@ -20,7 +23,9 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <AppWrapper isHome={isHome}>
-      <Component {...pageProps} />
+      <SnackbarProvider maxSnack={3}>
+        <Component {...pageProps} />
+      </SnackbarProvider>
     </AppWrapper>
   );
 }

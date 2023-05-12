@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { enqueueSnackbar } from 'notistack';
 // Custom
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -21,8 +23,12 @@ export default function Login() {
         resolver: yupResolver(schema)
     });
 
-    function onSubmit(data) {
-        console.log(data);
+    async function onSubmit(data) {
+        try {
+            await login(data);
+        } catch (e) {
+            enqueueSnackbar(e.message, { variant: "error" });
+        }
     }
 
     return (

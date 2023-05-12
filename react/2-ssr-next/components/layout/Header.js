@@ -2,9 +2,12 @@ import * as React from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import IconButton from '@mui/material/IconButton';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+// Custom
+import { useAuth } from '../../context/AuthContext';
 
 export function Header() {
 
+    const { logout } = useAuth();
     const { ThemeButton } = useTheme();
 
     return (
@@ -17,7 +20,7 @@ export function Header() {
                     </span>
                     <div className="flex items-center gap-1">
                         <ThemeButton />
-                        <IconButton>
+                        <IconButton title='Logout' onClick={() => logout()}>
                             <MeetingRoomIcon className="text-gray-800 dark:text-white" />
                         </IconButton>
                     </div>

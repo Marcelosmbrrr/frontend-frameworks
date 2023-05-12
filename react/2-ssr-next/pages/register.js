@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { enqueueSnackbar } from 'notistack';
 // Custom
+import axios from '../services/api';
 import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
 
 const schema = yup.object({
     name: yup.string().required(),
@@ -17,15 +19,24 @@ const schema = yup.object({
 
 export default function Register() {
 
-    const { login } = useAuth();
+    const router = useRouter();
     const { ThemeButton } = useTheme();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
-    function onSubmit(data) {
-        console.log(data);
+    async function onSubmit(data) {
+        try {
+            await axios.post(process.env.process.env.NEXT_PUBLIC_API_URL + "/auth/register");
+            enqueueSnackbar("Registration successful!", { variant: "success" });
+            setTimeout(() => {
+                router.replace("/login");
+            }, 2000);
+        } catch (e) {
+            console.log(e);
+            enqueueSnackbar(e.message, { variant: "error" });
+        }
     }
 
     return (

@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { enqueueSnackbar } from 'notistack';
 // Custom
 import axios from '../services/api';
 import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
 
 const schema = yup.object({
     email: yup.string().email().required(),
@@ -18,15 +18,23 @@ const schema = yup.object({
 
 export default function ForgotPassword() {
 
-    const { login } = useAuth();
     const { ThemeButton } = useTheme();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
-    function onSubmit(data) {
-        console.log(data);
+    async function onSubmit(data) {
+        try {
+            await axios.update(process.env.process.env.NEXT_PUBLIC_API_URL + "/auth/forgot-password");
+            enqueueSnackbar("Registration successful!", { variant: "success" });
+            setTimeout(() => {
+                redirect("/login");
+            }, 2000);
+        } catch (e) {
+            console.log(e);
+            enqueueSnackbar(e.message, { variant: "error" });
+        }
     }
 
     return (
