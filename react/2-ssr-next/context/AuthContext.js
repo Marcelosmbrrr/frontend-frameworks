@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import axios from '../services/api';
+// Firebase
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { firebaseAuth } from '../services/firebase';
 
 export const AuthContext = React.createContext({});
 
@@ -10,47 +12,40 @@ export function AuthProvider({ children }) {
     const [user, setUser] = React.useState(null);
     const isAuthenticated = !!user;
 
+    // When refresh ...
     React.useEffect(() => {
         if (/\/home\b/.test(router.asPath)) {
 
-            const personal_token = localStorage.getItem("nextjs-personal-token");
+            onAuthStateChanged(firebaseAuth, (user) => {
 
-            if (!personal_token) {
-                logout();
-            }
+                if (user) {
+                    const personal_token = localStorage.getItem("nextjs-personal-token");
 
-            setUser(JSON.parse(personal_token));
+                    if (!personal_token) {
+                        logout();
+                    }
+
+                    setUser(JSON.parse(personal_token));
+                } else {
+                    logout();
+                }
+            });
         }
     }, []);
 
     async function login({ email, password }) {
+
         try {
 
-            const data = {
-                id: 1,
-                name: "Tester",
-                email: email,
-                role: {
-                    id: 1,
-                    name: "Tester"
-                },
-                created_at: new Date().getDate()
-            }
-
-            setUser(data);
-
-            localStorage.setItem("nextjs-personal-token", JSON.stringify(data));
+            const response = await signInWithEmailAndPassword(firebaseAuth, email, password);
+            setUser(response.user);
+            localStorage.setItem("nextjs-personal-token", JSON.stringify(response.user));
 
             setTimeout(() => {
                 router.replace("/home");
-            }, 2000);
-
-            // login -> create refresh token and access token
-            // set client cookie with access token
-            // return response
+            }, 1000);
 
         } catch (error) {
-            console.log(error)
             throw error;
         }
     }

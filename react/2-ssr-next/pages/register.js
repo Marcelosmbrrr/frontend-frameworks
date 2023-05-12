@@ -1,16 +1,19 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+// React hook form
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+// Firebase
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { firebaseAuth } from '../services/firebase';
+// MUi
 import { enqueueSnackbar } from 'notistack';
 // Custom
-import axios from '../services/api';
 import { useTheme } from '../context/ThemeContext';
 
 const schema = yup.object({
-    name: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required(),
     password_confirmation: yup.string()
@@ -26,16 +29,19 @@ export default function Register() {
         resolver: yupResolver(schema)
     });
 
-    async function onSubmit(data) {
+    async function onSubmit({ email, password }) {
         try {
-            await axios.post(process.env.process.env.NEXT_PUBLIC_API_URL + "/auth/register");
-            enqueueSnackbar("Registration successful!", { variant: "success" });
+
+            const response = createUserWithEmailAndPassword(firebaseAuth, email, password);
+
+            enqueueSnackbar("Success! Your account has been created.", { variant: "success" });
             setTimeout(() => {
                 router.replace("/login");
             }, 2000);
-        } catch (e) {
-            console.log(e);
-            enqueueSnackbar(e.message, { variant: "error" });
+
+        } catch (error) {
+            console.log(error);
+            enqueueSnackbar(error.message, { variant: "error" });
         }
     }
 
@@ -55,11 +61,6 @@ export default function Register() {
                             Create and account
                         </h1>
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
-                            <div>
-                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your fullname</label>
-                                <input type="text" id="name" {...register("name")} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
-                                <span className="text-sm text-red-400">{errors.name?.message}</span>
-                            </div>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                                 <input type="email" id="email" {...register("email")} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
