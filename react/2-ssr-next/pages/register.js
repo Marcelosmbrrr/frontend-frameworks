@@ -7,15 +7,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 // Firebase
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore";
 import { firebaseAuth } from '../services/firebase';
+import { firebaseDB } from '../services/firebase';
 // MUi
 import { enqueueSnackbar } from 'notistack';
 // Custom
 import { useTheme } from '../context/ThemeContext';
 
 const schema = yup.object({
+    name: yup.string().min(3).required(),
     email: yup.string().email().required(),
-    password: yup.string().required(),
+    password: yup.string().min(3).required(),
     password_confirmation: yup.string()
         .oneOf([yup.ref('password')], 'Passwords must match')
 }).required();
@@ -29,12 +32,25 @@ export default function Register() {
         resolver: yupResolver(schema)
     });
 
-    async function onSubmit({ email, password }) {
+    async function onSubmit({ name, email, password }) {
         try {
 
-            const response = createUserWithEmailAndPassword(firebaseAuth, email, password);
+            // Create user
+            const response = await createUserWithEmailAndPassword(firebaseAuth, email, password);
+            const userUUID = response.user.uid;
+
+            // Cancel creation if document creation fails
+
+            // Add a new document to users
+            await setDoc(doc(firebaseDB, "users", userUUID), {
+                name: name,
+                role: "roles/aUadzbBBGeA8erSkKiT5",
+                status: true,
+                created_at: new Date().getTime()
+            });
 
             enqueueSnackbar("Success! Your account has been created.", { variant: "success" });
+
             setTimeout(() => {
                 router.replace("/login");
             }, 2000);
@@ -61,6 +77,11 @@ export default function Register() {
                             Create and account
                         </h1>
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
+                            <div>
+                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
+                                <input type="text" id="name" {...register("name")} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
+                                <span className="text-sm text-red-400">{errors.name?.message}</span>
+                            </div>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                                 <input type="email" id="email" {...register("email")} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />

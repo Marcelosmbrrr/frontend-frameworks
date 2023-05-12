@@ -38,6 +38,10 @@ export function AuthProvider({ children }) {
         try {
 
             const response = await signInWithEmailAndPassword(firebaseAuth, email, password);
+
+            // Verify is user has a document in "users" collection
+            // Verify if the field "status" is true
+
             setUser(response.user);
             localStorage.setItem("nextjs-personal-token", JSON.stringify(response.user));
 
