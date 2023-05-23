@@ -32,7 +32,7 @@ export default function ForgotPassword() {
                 redirect("/login");
             }, 2000);
         } catch (e) {
-            console.log(e);
+            console.error(e);
             enqueueSnackbar(e.message, { variant: "error" });
         }
     }
@@ -43,10 +43,16 @@ export default function ForgotPassword() {
                 <ThemeButton />
             </div>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                    <img className="w-8 h-8 mr-2" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="logo" />
-                    NextJS
-                </a>
+                <div className='flex justify-center gap-2 mb-6'>
+                    <a href="#" className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+                        <img className="w-8 h-8 mr-1" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="logo" />
+                        NextJS
+                    </a>
+                    <a href="#" className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+                        <img className="w-8 h-8 mr-1" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" />
+                        Firebase
+                    </a>
+                </div>
                 <div className="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8">
                     <h2 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Change Password

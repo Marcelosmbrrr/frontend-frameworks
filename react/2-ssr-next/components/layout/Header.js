@@ -7,7 +7,7 @@ import { useAuth } from '../../context/AuthContext';
 
 export function Header() {
 
-    const { logout } = useAuth();
+    const { signOut } = useAuth();
     const { ThemeButton } = useTheme();
 
     return (
@@ -15,12 +15,13 @@ export function Header() {
             <nav className="w-full bg-white border-b border-gray-200 dark:border-gray-700 px-6 py-2.5 dark:bg-gray-800">
                 <div className="flex justify-between items-center">
                     <span className="flex items-center">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" className="mr-3 h-9" alt="Flowbite Logo" />
-                        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" className="mr-2 h-9" alt="NextJS logo" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" className="mr-2 h-9" alt="Firebase logo" />
+                        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">NextJS with Firebase</span>
                     </span>
                     <div className="flex items-center gap-1">
                         <ThemeButton />
-                        <IconButton title='Logout' onClick={() => logout()}>
+                        <IconButton title='Logout' onClick={() => signOut()}>
                             <MeetingRoomIcon className="text-gray-800 dark:text-white" />
                         </IconButton>
                     </div>

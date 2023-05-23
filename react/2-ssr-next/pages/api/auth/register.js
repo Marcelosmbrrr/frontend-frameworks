@@ -1,26 +1,26 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from "firebase/firestore";
-import { firebaseAuth, firebaseDB } from "../../../services/firebase/providers";
+import { firebaseAuth, firebaseDB } from "../../../services/firebase";
 
 export default async function handler(req, res) {
     const { method } = req;
-    
+
     try {
         if (!method === "POST") {
-            throw new Error({ code: 405, message: 'Method not allowed.' });
+            throw new Error('Method not allowed.', { code: 405 });
         }
 
         // Create user authentication
         const user = await createUserWithEmailAndPassword(firebaseAuth, req.body.email, req.body.password);
 
         if (!user) {
-            throw new Error({ code: 500, message: 'Server error.' });
+            throw new Error('Server error.', { code: 405 });
         }
 
         // Create user document
         const ref = doc(firebaseDB, "users", response.user.uid);
         await setDoc(ref, {
-            name: name,
+            name: req.body.name,
             email: req.body.email,
             role: "roles/aUadzbBBGeA8erSkKiT5",
             status: true,

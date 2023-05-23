@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { enqueueSnackbar } from 'notistack';
 // Custom
 import { useTheme } from '../context/ThemeContext';
-import axios from '../services/axios/api';
+import axios from '../services/api';
 
 const schema = yup.object({
     name: yup.string().min(3).required(),
@@ -36,7 +36,7 @@ export default function Register() {
                 router.replace("/login");
             }, 2000);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             enqueueSnackbar(error.message, { variant: "error" });
         }
     }
@@ -47,10 +47,16 @@ export default function Register() {
                 <ThemeButton />
             </div>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                    <img className="w-8 h-8 mr-2" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="logo" />
-                    NextJS
-                </a>
+                <div className='flex justify-center gap-2 mb-6'>
+                    <a href="#" className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+                        <img className="w-8 h-8 mr-1" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="logo" />
+                        NextJS
+                    </a>
+                    <a href="#" className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+                        <img className="w-8 h-8 mr-1" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" />
+                        Firebase
+                    </a>
+                </div>
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">

@@ -5,7 +5,6 @@ import { Tooltip } from '@mui/material';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import GroupIcon from '@mui/icons-material/Group';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export function Sidenav() {
@@ -29,13 +28,6 @@ export function Sidenav() {
                 <Tooltip title={"Roles"} placement="right">
                     <Link href="/home/roles" className={`p-2 rounded-md text-gray-400 hover:bg-gray-700 hover:text-white outline-none`}>
                         <AssignmentIndIcon className="block h-6 w-6 text-cyan-300" />
-                    </Link>
-                </Tooltip>
-            </div>
-            <div className={`flex justify-center items-center h-14`}>
-                <Tooltip title={"Posts"} placement="right">
-                    <Link href="/home/posts" className={`p-2 rounded-md text-gray-400 hover:bg-gray-700 hover:text-white outline-none`}>
-                        <ContentCopyIcon className="block h-6 w-6 text-cyan-300" />
                     </Link>
                 </Tooltip>
             </div>
