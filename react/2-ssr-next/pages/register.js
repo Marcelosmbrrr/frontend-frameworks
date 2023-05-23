@@ -8,8 +8,8 @@ import * as yup from "yup";
 // Firebase
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from "firebase/firestore";
-import { firebaseAuth } from '../services/firebase';
-import { firebaseDB } from '../services/firebase';
+import { firebaseAuth } from '../services/data-access/firebase';
+import { firebaseDB } from '../services/data-access/firebase';
 // MUi
 import { enqueueSnackbar } from 'notistack';
 // Custom
@@ -37,16 +37,13 @@ export default function Register() {
 
             // Create user
             const response = await createUserWithEmailAndPassword(firebaseAuth, email, password);
-            const userUUID = response.user.uid;
 
-            // Cancel creation if document creation fails
-
-            // Add a new document to users
-            await setDoc(doc(firebaseDB, "users", userUUID), {
+            const ref = doc(firebaseDB, "users", response.user.uid);
+            await setDoc(ref, {
                 name: name,
                 role: "roles/aUadzbBBGeA8erSkKiT5",
                 status: true,
-                created_at: new Date().getTime()
+                created_at: new Date().now()
             });
 
             enqueueSnackbar("Success! Your account has been created.", { variant: "success" });

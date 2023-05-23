@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 // Firebase
-import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { firebaseAuth } from '../services/firebase';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { doc, getDoc } from "firebase/firestore";
+import { firebaseAuth, firebaseDB } from '../services/data-access/firebase';
 
 export const AuthContext = React.createContext({});
 
@@ -15,35 +16,60 @@ export function AuthProvider({ children }) {
     // When refresh ...
     React.useEffect(() => {
         if (/\/home\b/.test(router.asPath)) {
+            const personal_token = localStorage.getItem("nextjs-personal-token");
+            if (!personal_token) {
+                logout();
+            }
 
-            onAuthStateChanged(firebaseAuth, (user) => {
+            const fetch = async () => {
+                const userData = JSON.parse(personal_token);
+                const ref = doc(firebaseDB, "users", userData.uuid);
+                const docSnap = await getDoc(ref);
+                setUser({ uuid: docSnap.localId, ...docSnap.data() });
+            }
 
-                if (user) {
-                    const personal_token = localStorage.getItem("nextjs-personal-token");
-
-                    if (!personal_token) {
-                        logout();
-                    }
-
-                    setUser(JSON.parse(personal_token));
-                } else {
-                    logout();
-                }
-            });
+            fetch();
         }
     }, []);
 
-    async function login({ email, password }) {
-
+    async function loginWithCredentials({ email, password, rememberMe }) {
         try {
-
             const response = await signInWithEmailAndPassword(firebaseAuth, email, password);
 
-            // Verify is user has a document in "users" collection
-            // Verify if the field "status" is true
+            const ref = doc(firebaseDB, "users", response.user.uid);
+            const docSnap = await getDoc(ref);
 
-            setUser(response.user);
+            if (docSnap.exists()) {
+
+                localStorage.setItem("nextjs-personal-token", JSON.stringify({ uuid: response.user.uid, ...docSnap.data() }));
+                setUser({ uuid: response.user.uid, ...docSnap.data() });
+
+                setTimeout(() => {
+                    router.replace("/home");
+                }, 1000);
+
+            } else {
+                throw new Error("Unable to connect.");
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async function loginWithGoogle() {
+        try {
+
+            const provider = new GoogleAuthProvider();
+
+            const response = await signInWithPopup(firebaseAuth, provider);
+
+            const credential = provider.credentialFromResult(response);
+            const token = credential.accessToken;
+            const user = response.user;
+
+            setUser(user);
             localStorage.setItem("nextjs-personal-token", JSON.stringify(response.user));
+            localStorage.setItem("nextjs-oAuth0-token", token);
 
             setTimeout(() => {
                 router.replace("/home");
@@ -56,16 +82,9 @@ export function AuthProvider({ children }) {
 
     async function logout() {
         try {
-
             setUser(null);
-            localStorage.removeItem("nextjs-personal-token");
-
+            localStorage.clear();
             router.replace("/login");
-
-            // login -> create refresh token and access token
-            // set client cookie with access token
-            // return response
-
         } catch (error) {
             console.log(error)
             throw error;
@@ -73,7 +92,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, loginWithCredentials, loginWithGoogle, logout }}>
             {children}
         </AuthContext.Provider>
     )

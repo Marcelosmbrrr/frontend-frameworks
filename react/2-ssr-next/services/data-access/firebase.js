@@ -1,10 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 
-// Authentication web: https://firebase.google.com/docs/auth/web/start?hl=pt-br
-// Database web: 
-// https://www.freecodecamp.org/news/create-full-stack-app-with-nextjs13-and-firebase/
+// Authentication: https://firebase.google.com/docs/auth/web/start?hl=pt-br
+// Firestore DB: https://firebase.google.com/docs/firestore?hl=pt-br
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -18,7 +17,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
-const firebaseDB = getDatabase(firebaseApp);
+const firebaseDB = getFirestore(firebaseApp);
 
 export {
     firebaseApp,
