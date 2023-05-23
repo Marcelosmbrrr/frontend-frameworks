@@ -5,15 +5,11 @@ import { useRouter } from 'next/router';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-// Firebase
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from "firebase/firestore";
-import { firebaseAuth } from '../services/data-access/firebase';
-import { firebaseDB } from '../services/data-access/firebase';
 // MUi
 import { enqueueSnackbar } from 'notistack';
 // Custom
 import { useTheme } from '../context/ThemeContext';
+import axios from '../services/axios/api';
 
 const schema = yup.object({
     name: yup.string().min(3).required(),
@@ -34,24 +30,11 @@ export default function Register() {
 
     async function onSubmit({ name, email, password }) {
         try {
-
-            // Create user
-            const response = await createUserWithEmailAndPassword(firebaseAuth, email, password);
-
-            const ref = doc(firebaseDB, "users", response.user.uid);
-            await setDoc(ref, {
-                name: name,
-                role: "roles/aUadzbBBGeA8erSkKiT5",
-                status: true,
-                created_at: new Date().now()
-            });
-
-            enqueueSnackbar("Success! Your account has been created.", { variant: "success" });
-
+            const response = await axios.post("api/auth/register", { name, email, password });
+            enqueueSnackbar(response.data.message, { variant: "success" });
             setTimeout(() => {
                 router.replace("/login");
             }, 2000);
-
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error.message, { variant: "error" });

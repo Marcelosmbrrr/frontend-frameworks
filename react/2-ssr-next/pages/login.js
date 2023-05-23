@@ -27,6 +27,7 @@ export default function Login() {
         try {
             await loginWithCredentials(data);
         } catch (e) {
+            console.error(e);
             enqueueSnackbar(e.message, { variant: "error" });
         }
     }
@@ -35,6 +36,7 @@ export default function Login() {
         try {
             await loginWithGoogle();
         } catch (e) {
+            console.error(e);
             enqueueSnackbar(e.message, { variant: "error" });
         }
     }
