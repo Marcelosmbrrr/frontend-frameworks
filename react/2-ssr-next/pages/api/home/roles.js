@@ -1,34 +1,42 @@
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { firebaseDB } from '../../../services/firebase';
+import { RolesController } from "../../../services/controllers/RolesController";
+
+const controller = new RolesController();
 
 export default async function handler(req, res) {
-    const { method } = req;
+    const { method, query } = req;
 
     try {
 
         if (method === "GET") {
 
-            // Get all or by factor
+            const data = await controller.getRoles();
+            res.status(200).json({ roles: data, message: 'Roles found.' });
 
         } else if (method === "POST") {
 
-            // Create user document
-            const ref = doc(firebaseDB, "roles");
-            await setDoc(ref, {
+            await controller.addRole({
                 name: req.body.name,
                 read: true,
-                write: false
+                write: false,
+                created_at: new Date().now()
             });
 
-            res.status(201).json({ message: 'Role successful created.' })
+            res.status(201).json({ message: 'Role successful created.' });
 
         } else if (method === "PATCH") {
 
-            // Update one by uuid
+            controller.updateRole("uuid", {
+                name: req.body.name,
+                read: req.body.read,
+                write: req.body.write
+            });
+
+            res.status(200).json({ message: 'Role successful updated.' });
 
         } else if (method === "DELETE") {
 
-            // Delete by uuid
+            await usersRef.doc(query.uuid).delete();
+            res.status(200).json({ message: 'Role successful deleted.' });
 
         }
 

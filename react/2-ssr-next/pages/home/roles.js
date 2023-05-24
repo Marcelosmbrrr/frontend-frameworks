@@ -1,6 +1,12 @@
 import * as React from 'react';
+import { RolesController } from '../../services/controllers/RolesController';
 
-export default function Roles() {
+export default function Roles(props) {
+
+    React.useEffect(() => {
+        console.log(props)
+    }, []);
+
     return (
         <div className="grow p-2 bg-gray-50 dark:bg-gray-900">
 
@@ -99,4 +105,18 @@ export default function Roles() {
 
         </div>
     )
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+
+    const controller = new RolesController();
+    const data = controller.getRoles();
+
+    return {
+        props: {
+            data: data
+        }
+    };
+
 }

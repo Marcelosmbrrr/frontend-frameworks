@@ -1,6 +1,6 @@
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from "firebase/firestore";
-import { firebaseAuth, firebaseDB } from "../../../services/firebase";
+import { firebaseDB, firebaseAuth } from '../../../utils/firebase';
 
 export default async function handler(req, res) {
     const { method } = req;

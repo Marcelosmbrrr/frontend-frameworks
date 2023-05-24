@@ -1,6 +1,8 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from "firebase/firestore";
-import { firebaseAuth, firebaseDB } from "../../../services/firebase";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { firebaseAuth, firebaseDB } from "../../../utils/firebase";
+
+const usersRef = collection(firebaseDB, "users");
 
 export default async function handler(req, res) {
     const { method } = req;
@@ -18,8 +20,7 @@ export default async function handler(req, res) {
         }
 
         // Create user document
-        const ref = doc(firebaseDB, "users", response.user.uid);
-        await setDoc(ref, {
+        await setDoc(doc(usersRef, response.user.uid), {
             name: req.body.name,
             email: req.body.email,
             role: "roles/aUadzbBBGeA8erSkKiT5",

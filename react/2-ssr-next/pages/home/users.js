@@ -1,6 +1,12 @@
 import * as React from 'react';
+import { UsersController } from '../../services/controllers/UsersController';
 
-export default function Users() {
+export default function Users(props) {
+
+    React.useEffect(() => {
+        console.log(props)
+    }, []);
+
     return (
         <div className="grow p-2 bg-gray-50 dark:bg-gray-900">
 
@@ -101,4 +107,18 @@ export default function Users() {
 
         </div>
     )
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+
+    const controller = new UsersController();
+    const data = controller.getUsers();
+
+    return {
+        props: {
+            data: data
+        }
+    };
+
 }

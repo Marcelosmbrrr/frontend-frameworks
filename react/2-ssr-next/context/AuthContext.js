@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { firebaseAuth } from '../services/firebase';
-import axios from '../services/api';
+import { firebaseAuth } from '../utils/firebase';
+import axios from '../utils/api';
 
 export const AuthContext = React.createContext({});
 

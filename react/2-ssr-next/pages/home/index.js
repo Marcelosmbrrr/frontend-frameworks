@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { DashboardController } from '../../services/controllers/DashboardController';
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     return (
         <div className='h-full p-2 grid grid-rows-4 md:grid-rows-2 md:grid-cols-3 gap-2'>
             <div className="col-span-3 rounded-md bg-gray-100 shadow-md dark:bg-gray-800">
@@ -13,4 +14,16 @@ export default function Dashboard() {
             </div>
         </div>
     )
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+
+    const controller = new DashboardController();
+    const data = controller.index();
+
+    return {
+        props: {}
+    };
+
 }

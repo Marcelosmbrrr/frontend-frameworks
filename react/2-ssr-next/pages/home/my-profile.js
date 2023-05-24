@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { ProfileController } from '../../services/controllers/ProfileController';
 
 export default function MyProfile() {
 
@@ -31,4 +32,18 @@ export default function MyProfile() {
             </section>
         </div>
     )
+}
+
+export async function getStaticProps() {
+
+    const controller = new ProfileController();
+    const data = controller.getData();
+
+    return {
+        props: {
+            data: data
+        },
+        revalidate: 60 * 60,
+    };
+
 }
