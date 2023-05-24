@@ -17,12 +17,12 @@ export class RolesController {
         return this.#model.add(data);
     }
 
-    async updateRole(data) {
-        return this.#model.updateOne(data);
+    async updateRole(identifier, data) {
+        return this.#model.updateOne(identifier, data);
     }
 
-    async deleteRole(uuid) {
-        return this.#model.deleteOne(uuid);
+    async deleteRole(identifier) {
+        return this.#model.deleteOne(identifier);
     }
 
 }

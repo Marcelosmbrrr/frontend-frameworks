@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { RolesController } from '../../services/controllers/RolesController';
 
-export default function Roles(props) {
+export default function Roles({ data }) {
 
     React.useEffect(() => {
-        console.log(props)
+        console.log(JSON.parse(data))
     }, []);
 
     return (
@@ -111,11 +111,11 @@ export default function Roles(props) {
 export async function getServerSideProps() {
 
     const controller = new RolesController();
-    const data = controller.getRoles();
+    const data = await controller.getRoles();
 
     return {
         props: {
-            data: data
+            data: JSON.stringify(data)
         }
     };
 

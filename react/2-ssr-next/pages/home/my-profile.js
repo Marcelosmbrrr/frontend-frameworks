@@ -37,7 +37,7 @@ export default function MyProfile() {
 export async function getStaticProps() {
 
     const controller = new ProfileController();
-    const data = controller.getData();
+    const data = await controller.getData();
 
     return {
         props: {

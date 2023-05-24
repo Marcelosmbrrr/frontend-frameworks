@@ -1,21 +1,19 @@
-import { query, orderBy, limit } from "firebase/firestore";
+import { query, orderBy, limit, collection, doc, getDocs, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { firebaseDB } from "../../utils/firebase";
 
 export class Role {
 
+
     #collection;
 
     constructor() {
-        this.#collection = firebaseDB.collection("roles");
+        this.#collection = collection(firebaseDB, "roles");
     }
 
     async getMany(where) {
         try {
             const q = query(this.#collection, orderBy("created_at", "desc"), limit(10));
-            if (where) {
-                q.or(where("name", "==", where));
-            }
-            const data = await q.get();
+            return await getDocs(q);
         } catch (e) {
             throw e;
         }
@@ -23,7 +21,7 @@ export class Role {
 
     async add({ name, read, write }) {
         try {
-            await this.#collection.add({
+            await addDoc(this.#collection, {
                 name: name,
                 read: read,
                 write: write,
@@ -34,21 +32,23 @@ export class Role {
         }
     }
 
-    async updateOne(uuid) {
+    async updateOne(identifier, { name, read, write }) {
         try {
-            await this.#collection.doc(uuid).update({
-                name: req.body.name,
-                read: req.body.read,
-                write: req.body.write
+            const role = doc(firebaseDB, "roles", identifier);
+            await updateDoc(role, {
+                name: name,
+                read: read,
+                write: write
             });
         } catch (e) {
             throw e;
         }
     }
 
-    async deleteMany(uuid) {
+    async deleteMany(identifier) {
         try {
-            await this.#collection.doc(uuid).delete();
+            const role = doc(firebaseDB, "roles", identifier);
+            await deleteDoc(role);
         } catch (e) {
             throw e;
         }

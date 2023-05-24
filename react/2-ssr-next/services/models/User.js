@@ -1,4 +1,4 @@
-import { query, orderBy, limit } from "firebase/firestore";
+import { query, orderBy, limit, collection, doc, getDocs, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { firebaseDB } from "../../utils/firebase";
 
 export class User {
@@ -6,16 +6,13 @@ export class User {
     #collection;
 
     constructor() {
-        this.#collection = firebaseDB.collection("users");
+        this.#collection = collection(firebaseDB, "users");
     }
 
     async getMany(where) {
         try {
             const q = query(this.#collection, orderBy("created_at", "desc"), limit(10));
-            if (where) {
-                q.or(where("name", "==", where), where("email", "==", where));
-            }
-            const data = await q.get();
+            return await getDocs(q);
         } catch (e) {
             throw e;
         }
@@ -23,7 +20,7 @@ export class User {
 
     async add({ name, email, role, status }) {
         try {
-            await this.#collection.add({
+            await addDoc(this.#collection, {
                 name: name,
                 email: email,
                 role: role,
@@ -35,9 +32,10 @@ export class User {
         }
     }
 
-    async updateOne(name, role, status) {
+    async updateOne(identifier, { name, role, status }) {
         try {
-            await this.#collection.doc("uuid").update({
+            const user = doc(firebaseDB, "users", identifier);
+            await updateDoc(user, {
                 name: name,
                 role: role,
                 status: status
@@ -47,9 +45,10 @@ export class User {
         }
     }
 
-    async deleteMany(uuid) {
+    async deleteMany(identifier) {
         try {
-            await this.#collection.doc(uuid).delete();
+            const user = doc(firebaseDB, "users", identifier);
+            await deleteDoc(user);
         } catch (e) {
             throw e;
         }

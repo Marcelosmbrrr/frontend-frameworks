@@ -20,7 +20,7 @@ export default function Dashboard(props) {
 export async function getServerSideProps() {
 
     const controller = new DashboardController();
-    const data = controller.index();
+    const data = await controller.index();
 
     return {
         props: {}

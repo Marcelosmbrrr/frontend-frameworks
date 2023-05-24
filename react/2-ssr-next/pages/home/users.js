@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { UsersController } from '../../services/controllers/UsersController';
 
-export default function Users(props) {
+export default function Users({ data }) {
 
     React.useEffect(() => {
-        console.log(props)
+        console.log(JSON.parse(data))
     }, []);
 
     return (
@@ -113,11 +113,11 @@ export default function Users(props) {
 export async function getServerSideProps() {
 
     const controller = new UsersController();
-    const data = controller.getUsers();
+    const data = await controller.getUsers();
 
     return {
         props: {
-            data: data
+            data: JSON.stringify(data)
         }
     };
 

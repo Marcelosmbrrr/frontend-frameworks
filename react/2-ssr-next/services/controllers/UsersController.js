@@ -17,12 +17,12 @@ export class UsersController {
         return this.#model.add(data);
     }
 
-    async updateUser(data) {
-        return this.#model.updateOne(data);
+    async updateUser(identifier, data) {
+        return this.#model.updateOne(identifier, data);
     }
 
-    async deleteUser(uuid) {
-        return this.#model.deleteOne(uuid);
+    async deleteUser(identifier) {
+        return this.#model.deleteOne(identifier);
     }
 
 }

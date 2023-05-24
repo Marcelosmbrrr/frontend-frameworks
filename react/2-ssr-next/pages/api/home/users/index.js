@@ -1,11 +1,11 @@
-import { UsersController } from "../../../services/controllers/UsersController";
+import { UsersController } from "../../../../services/controllers/UsersController";
 
 const controller = new UsersController();
 
 export default async function handler(req, res) {
-    const { method, query } = req;
-
     try {
+
+        const { method } = req;
 
         if (method === "GET") {
 
@@ -22,21 +22,6 @@ export default async function handler(req, res) {
             });
 
             res.status(201).json({ message: 'User successful created.' });
-
-        } else if (method === "PATCH") {
-
-            await controller.updateUser({
-                name: req.body.name,
-                role: req.body.role,
-                status: req.body.status
-            });
-
-            res.status(200).json({ message: 'User successful updated.' });
-
-        } else if (method === "DELETE") {
-
-            await controller.deleteUser(query.uuid);
-            res.status(200).json({ message: 'User successful deleted.' });
 
         }
 
