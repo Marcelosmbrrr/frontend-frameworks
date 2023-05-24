@@ -9,20 +9,20 @@ export class UsersController {
     }
 
     async getUsers(where = null) {
-        const data = this.#model.getMany(where);
-        return data;
+        const result = await this.#model.getMany(where);
+        return result.docs.map(doc => doc.data());
     }
 
     async addUser(data) {
-        return this.#model.add(data);
+        await this.#model.add(data);
     }
 
     async updateUser(identifier, data) {
-        return this.#model.updateOne(identifier, data);
+        await this.#model.updateOne(identifier, data);
     }
 
     async deleteUser(identifier) {
-        return this.#model.deleteOne(identifier);
+        await this.#model.deleteOne(identifier);
     }
 
 }

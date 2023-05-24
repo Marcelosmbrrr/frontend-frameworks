@@ -3,9 +3,9 @@ import { RolesController } from '../../services/controllers/RolesController';
 
 export default function Roles({ data }) {
 
-    React.useEffect(() => {
-        console.log(JSON.parse(data))
-    }, []);
+    const [roles, setRoles] = React.useState(JSON.parse(data));
+
+    console.log(JSON.parse(data))
 
     return (
         <div className="grow p-2 bg-gray-50 dark:bg-gray-900">
@@ -18,7 +18,7 @@ export default function Roles({ data }) {
                                 <label htmlFor="simple-search" className="sr-only">Search</label>
                                 <div className="relative w-full">
                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                             <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                                         </svg>
                                     </div>
@@ -47,30 +47,34 @@ export default function Roles({ data }) {
                                     <th scope="col" className="p-4 flex items-center">
                                         <input id="checkbox-all" type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                     </th>
-                                    <th scope="col" className="px-4 py-3">Status</th>
                                     <th scope="col" className="px-4 py-3">Name</th>
                                     <th scope="col" className="px-4 py-3">Privileges</th>
-                                    <th scope="col" className="px-4 py-3">Users</th>
                                     <th scope="col" className="px-4 py-3">Created at</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="border-b dark:border-gray-700">
-                                    <td className="w-4 px-4 py-3">
-                                        <div className="flex items-center">
-                                            <input type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                        </div>
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <div className="flex items-center">
-                                            <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Active
-                                        </div>
-                                    </td>
-                                    <td className="px-4 py-3">PC</td>
-                                    <td className="px-4 py-3">Apple</td>
-                                    <td className="px-4 py-3">200</td>
-                                    <td className="px-4 py-3">$1499</td>
-                                </tr>
+                                {roles.map((role, index) =>
+                                    <tr className="border-b dark:border-gray-700" key={index}>
+                                        <td className="w-4 px-4 py-3">
+                                            <div className="flex items-center">
+                                                <input type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                            </div>
+                                        </td>
+                                        <td className="px-4 py-3">{role.name}</td>
+                                        <td className="flex px-4 py-3">
+                                            <div className="flex items-center mr-4">
+                                                <input type="checkbox" checked={role.read} disabled className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                                <label htmlFor="default-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Read</label>
+                                            </div>
+                                            <div className="flex items-center mr-4">
+                                                <input type="checkbox" checked={role.write} disabled className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                                <label htmlFor="checked-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Write</label>
+                                            </div>
+                                        </td>
+                                        <td className="px-4 py-3">{role.created_at.seconds}</td>
+                                    </tr>
+                                )}
+
                             </tbody>
                         </table>
                     </div>
@@ -82,8 +86,8 @@ export default function Roles({ data }) {
                             <li>
                                 <a href="#" className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                     <span className="sr-only">Previous</span>
-                                    <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
                                     </svg>
                                 </a>
                             </li>
@@ -93,8 +97,8 @@ export default function Roles({ data }) {
                             <li>
                                 <a href="#" className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                     <span className="sr-only">Next</span>
-                                    <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                                    <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                                     </svg>
                                 </a>
                             </li>

@@ -3,7 +3,6 @@ import { firebaseDB } from "../../utils/firebase";
 
 export class Role {
 
-
     #collection;
 
     constructor() {
@@ -12,8 +11,10 @@ export class Role {
 
     async getMany(where) {
         try {
-            const q = query(this.#collection, orderBy("created_at", "desc"), limit(10));
-            return await getDocs(q);
+            const sql = query(this.#collection, orderBy("created_at"), limit(10));
+            const result = await getDocs(sql);
+            
+            return result;
         } catch (e) {
             throw e;
         }

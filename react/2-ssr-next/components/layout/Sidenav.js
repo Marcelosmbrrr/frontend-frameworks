@@ -11,15 +11,8 @@ export function Sidenav() {
     return (
         <aside className="w-20 h-full flex flex-col bg-gray-50 dark:bg-gray-900">
             <div className={`flex justify-center items-center h-14`}>
-                <Tooltip title={"Dashboard"} placement="right">
-                    <Link href="/home" className={`p-2 rounded-md text-gray-400 hover:bg-gray-700 hover:text-white outline-none`}>
-                        <TableChartIcon className="block h-6 w-6 text-cyan-300" />
-                    </Link>
-                </Tooltip>
-            </div>
-            <div className={`flex justify-center items-center h-14`}>
                 <Tooltip title={"Users"} placement="right">
-                    <Link href="/home/users" className={`p-2 rounded-md text-gray-400 hover:bg-gray-700 hover:text-white outline-none`}>
+                    <Link href="/home" className={`p-2 rounded-md text-gray-400 hover:bg-gray-700 hover:text-white outline-none`}>
                         <GroupIcon className="block h-6 w-6 text-cyan-300" />
                     </Link>
                 </Tooltip>
