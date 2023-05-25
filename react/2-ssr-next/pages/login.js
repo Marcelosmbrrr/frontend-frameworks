@@ -19,9 +19,20 @@ export default function Login() {
     const { signInWithCredentials, signInWithGoogle } = useAuth();
     const { ThemeButton } = useTheme();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         resolver: yupResolver(schema)
     });
+
+    React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem("remember-me") != null) {
+                const credentials = JSON.parse(localStorage.getItem("remember-me"));
+                for(let field in credentials){
+                    setValue(field, credentials[field]);
+                }
+            }
+        }
+    }, []);
 
     async function onSubmit(data) {
         try {

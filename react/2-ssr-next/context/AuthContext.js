@@ -46,6 +46,10 @@ export function AuthProvider({ children }) {
             localStorage.setItem("nextjs-personal-token", JSON.stringify(response.data.user));
             setUser(response.data.user);
 
+            if (rememberMe) {
+                localStorage.setItem("remember-me", JSON.stringify({ email, password, rememberMe }));
+            }
+
             setTimeout(() => {
                 router.replace("/home");
             }, 1000);
@@ -77,7 +81,7 @@ export function AuthProvider({ children }) {
     async function signOut() {
         try {
             setUser(null);
-            localStorage.clear(); // Refact: remove all with "next_" pattern
+            localStorage.removeItem("nextjs-personal-token");
             router.replace("/login");
         } catch (error) {
             console.error(error)
