@@ -64,16 +64,31 @@ export function AuthProvider({ children }) {
 
             const provider = new GoogleAuthProvider();
 
-            signInWithPopup(firebaseAuth, provider)
-                .then((response) => {
-                    console.log(response.user)
-                    //setUser(response.user);
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
+            const oauth = await signInWithPopup(firebaseAuth, provider);
+
+            let response = await axios.get("api/auth/oauth/" + oauth.user.reloadUserInfo.localId);
+
+            if (Number(response.data.found) === 0) {
+                response = await axios.post("api/auth/oauth/register", {
+                    uuid: oauth.user.reloadUserInfo.localId,
+                    name: oauth.user.displayName,
+                    email: oauth.user.email
+                });
+            }
+
+            setUser({
+                name: response.data.user.name,
+                email: response.data.user.email,
+                role: response.data.user.role,
+                created_at: response.data.user.created_at
+            });
+
+            setTimeout(() => {
+                router.replace("/home");
+            }, 1000);
 
         } catch (error) {
+            console.error(error)
             throw error;
         }
     }

@@ -6,6 +6,8 @@ export default function MyProfile() {
 
     const { user } = useAuth();
 
+    console.log(user)
+
     return (
         <div className='w-full h-full'>
             <section className="bg-white dark:bg-gray-900">
