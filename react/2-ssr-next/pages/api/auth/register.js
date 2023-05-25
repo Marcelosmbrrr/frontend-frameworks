@@ -1,8 +1,6 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { firebaseAuth, firebaseDB } from "../../../utils/firebase";
-
-const usersRef = collection(firebaseDB, "users");
 
 export default async function handler(req, res) {
     const { method } = req;
@@ -13,23 +11,19 @@ export default async function handler(req, res) {
         }
 
         // Create user authentication
-        const user = await createUserWithEmailAndPassword(firebaseAuth, req.body.email, req.body.password);
-
-        if (!user) {
-            throw new Error('Server error.', { code: 405 });
-        }
+        const response = await createUserWithEmailAndPassword(firebaseAuth, req.body.email, req.body.password);
 
         // Create user document
-        await setDoc(doc(usersRef, response.user.uid), {
+        await setDoc(doc(firebaseDB, "users", response.user.uid), {
             name: req.body.name,
             email: req.body.email,
             role: "roles/aUadzbBBGeA8erSkKiT5",
             status: true,
-            created_at: new Date().now()
+            created_at: new Date().getTime()
         });
 
-        res.status(200).json({ message: 'Registration successful.' });
+        res.status(201).json({ message: 'Registration successful.' });
     } catch (e) {
-        res.status(e.code).json({ message: e.message });
+        res.status(500).json({ message: e.message });
     }
 }

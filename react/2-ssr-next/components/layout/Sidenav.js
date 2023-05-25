@@ -2,7 +2,6 @@ import * as React from 'react';
 import Link from 'next/link';
 // Mui
 import { Tooltip } from '@mui/material';
-import TableChartIcon from '@mui/icons-material/TableChart';
 import GroupIcon from '@mui/icons-material/Group';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';

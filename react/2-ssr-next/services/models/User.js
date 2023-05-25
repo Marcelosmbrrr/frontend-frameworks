@@ -27,7 +27,7 @@ export class User {
                 email: email,
                 role: role,
                 status: status,
-                created_at: new Date().now()
+                created_at: new Date().getTime()
             });
         } catch (e) {
             throw e;

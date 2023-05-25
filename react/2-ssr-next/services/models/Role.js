@@ -26,7 +26,7 @@ export class Role {
                 name: name,
                 read: read,
                 write: write,
-                created_at: new Date().now()
+                created_at: new Date().getTime()
             });
         } catch (e) {
             throw e;

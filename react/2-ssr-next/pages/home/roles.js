@@ -71,7 +71,7 @@ export default function Roles({ data }) {
                                                 <label htmlFor="checked-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Write</label>
                                             </div>
                                         </td>
-                                        <td className="px-4 py-3">{role.created_at.seconds}</td>
+                                        <td className="px-4 py-3">{new Date(role.created_at).toDateString()}</td>
                                     </tr>
                                 )}
 

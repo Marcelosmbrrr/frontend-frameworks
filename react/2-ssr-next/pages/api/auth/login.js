@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
         res.status(200).json({ user: { uuid: response.user.uid, ...docSnap.data() }, message: 'Successful login.' });
     } catch (e) {
-        res.status(e.code).json({ message: e.message });
+        res.status(500).json({ message: e.message });
     }
 
 }

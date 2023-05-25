@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
 
         const user_data = JSON.parse(personal_token);
 
-        axios.get("api/auth/refresh?user=" + user_data.uuid)
+        axios.get("api/auth/refresh/" + user_data.uuid)
             .then((response) => {
                 setUser(response.data.user);
             })
@@ -35,6 +35,8 @@ export function AuthProvider({ children }) {
                 console.error(error);
             })
     }, []);
+
+    console.log(user)
 
     async function signInWithCredentials({ email, password, rememberMe }) {
         try {

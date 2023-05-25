@@ -5,8 +5,6 @@ export default function Users({ data }) {
 
     const [users, setUsers] = React.useState(JSON.parse(data));
 
-    console.log(JSON.parse(data))
-
     return (
         <div className="grow p-2 bg-gray-50 dark:bg-gray-900">
 
@@ -70,7 +68,7 @@ export default function Users({ data }) {
                                         <td className="px-4 py-3">{user.name}</td>
                                         <td className="px-4 py-3">{user.email}</td>
                                         <td className="px-4 py-3">200</td>
-                                        <td className="px-4 py-3">{user.created_at.seconds}</td>
+                                        <td className="px-4 py-3">{new Date(user.created_at).toDateString()}</td>
                                     </tr>
                                 )}
                             </tbody>
