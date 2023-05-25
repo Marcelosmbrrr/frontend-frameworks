@@ -1,9 +1,44 @@
 import * as React from 'react';
 import { UsersController } from '../../services/controllers/UsersController';
+import { useAuth } from '../../context/AuthContext';
+import { CreateUser } from '../../components/formulary/users/CreateUser';
+import { EditUser } from '../../components/formulary/users/EditUser';
 
 export default function Users({ data }) {
 
+    const { user: userAuthenticated } = useAuth();
     const [users, setUsers] = React.useState(JSON.parse(data));
+    const [selection, setSelection] = React.useState(null);
+
+    function handleSelection(e) {
+
+        const record_id = e.target.id;
+
+        setSelection((prev) => {
+            // Is an unselection
+            if (prev === record_id) {
+                return null;
+            }
+            // Is a new selection when is empty or is different from previously
+            return record_id;
+        });
+    }
+
+    function isRecordDisabled(record_id) {
+
+        if (record_id == userAuthenticated.uuid) {
+            return true;
+        } else if (selection != null) {
+
+            if (selection === record_id) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return (record_id == userAuthenticated.uuid) || selection != null;
+    }
 
     return (
         <div className="grow p-2 bg-gray-50 dark:bg-gray-900">
@@ -25,12 +60,13 @@ export default function Users({ data }) {
                             </form>
                         </div>
                         <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-                            <button type="button" className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                                Add User
-                            </button>
-                            <button type="button" className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                                Edit User
-                            </button>
+                            <CreateUser />
+                            {selection === null &&
+                                <button type="button" className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                    Edit User
+                                </button>
+                            }
+                            {selection != null && <EditUser selection={selection} />}
                         </div>
                     </div>
                 </div>
@@ -57,7 +93,7 @@ export default function Users({ data }) {
                                     <tr className="border-b dark:border-gray-700" key={index}>
                                         <td className="w-4 px-4 py-3">
                                             <div className="flex items-center">
-                                                <input type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                                <input id={user.uuid} onChange={handleSelection} disabled={isRecordDisabled(user.uuid)} type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                             </div>
                                         </td>
                                         <td className="px-4 py-3">
