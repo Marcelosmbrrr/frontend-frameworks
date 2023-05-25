@@ -18,14 +18,11 @@ export default async function handler(req, res) {
             throw new Error('User not found.', { code: 404 });
         }
 
-        const data = userSnap.data();
-
-        // Get referenced role doc by uuid
-        const roleId = userSnap.data().role.split("/")[1];
-        const roleRef = doc(firebaseDB, "roles", roleId);
-        const roleSnap = await getDoc(roleRef);
+        // Get referenced role by roleRef
+        const roleSnap = await getDoc(userSnap.data().role);
 
         // Group all data
+        const data = userSnap.data();
         data["uuid"] = userSnap.localId;
         data["role"] = roleSnap.data();
 

@@ -36,8 +36,6 @@ export function AuthProvider({ children }) {
             })
     }, []);
 
-    console.log(user)
-
     async function signInWithCredentials({ email, password, rememberMe }) {
         try {
 

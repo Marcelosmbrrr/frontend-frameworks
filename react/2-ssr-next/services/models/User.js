@@ -12,9 +12,8 @@ export class User {
     async getMany(where) {
         try {
             const sql = query(this.#collection, orderBy("created_at"), limit(10));
-            const result = await getDocs(sql);
-            
-            return result;
+            const docsSnap = await getDocs(sql);
+            return docsSnap;
         } catch (e) {
             throw e;
         }

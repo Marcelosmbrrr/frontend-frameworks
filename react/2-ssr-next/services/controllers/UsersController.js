@@ -1,4 +1,5 @@
 import { User } from "../models/User";
+import { getDoc } from "firebase/firestore";
 
 export class UsersController {
 
@@ -10,7 +11,20 @@ export class UsersController {
 
     async getUsers(where = null) {
         const result = await this.#model.getMany(where);
-        return result.docs.map(doc => doc.data());
+
+        return result.docs.map(async (docSnap) => {
+
+            // Get referenced role by roleRef
+            const roleSnap = await getDoc(docSnap.data().role);
+
+            // Group all data
+            const docData = docSnap.data();
+            docData["uuid"] = docSnap.localId;
+            docData["role"] = roleSnap.data();
+
+            return docData;
+
+        });
     }
 
     async addUser(data) {

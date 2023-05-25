@@ -5,6 +5,8 @@ export default function Users({ data }) {
 
     const [users, setUsers] = React.useState(JSON.parse(data));
 
+    console.log(JSON.parse(data))
+
     return (
         <div className="grow p-2 bg-gray-50 dark:bg-gray-900">
 
