@@ -20,7 +20,7 @@ export default function Users({ data }) {
                 return null;
             }
             // Is a new selection when is empty or is different from previously
-            return record_id;
+            return users.filter((user) => user.uuid === record_id)[0];
         });
     }
 
@@ -30,7 +30,7 @@ export default function Users({ data }) {
             return true;
         } else if (selection != null) {
 
-            if (selection === record_id) {
+            if (selection.uuid == record_id) {
                 return false;
             } else {
                 return true;

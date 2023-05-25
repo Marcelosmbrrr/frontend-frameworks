@@ -22,6 +22,7 @@ export class UsersController {
             const docData = docSnap.data();
             docData["uuid"] = docSnap.id;
             docData["role"] = roleSnap.data();
+            docData["role"].uuid = roleSnap.id;
 
             return docData;
 
@@ -29,7 +30,7 @@ export class UsersController {
 
         const resolvedPromises = await Promise.all(promises);
         return resolvedPromises;
-        
+
     }
 
     async addUser(data) {
