@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
         // Group all data
         const data = userSnap.data();
-        data["uuid"] = userSnap.localId;
+        data["uuid"] = userSnap.id;
         data["role"] = roleSnap.data();
 
         res.status(200).json({ user: data });

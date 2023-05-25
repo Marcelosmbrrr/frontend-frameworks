@@ -12,19 +12,24 @@ export class UsersController {
     async getUsers(where = null) {
         const result = await this.#model.getMany(where);
 
-        return result.docs.map(async (docSnap) => {
+        // Map with async callback returns a promisse
+        const promises = result.docs.map(async (docSnap) => {
 
             // Get referenced role by roleRef
             const roleSnap = await getDoc(docSnap.data().role);
 
             // Group all data
             const docData = docSnap.data();
-            docData["uuid"] = docSnap.localId;
+            docData["uuid"] = docSnap.id;
             docData["role"] = roleSnap.data();
 
             return docData;
 
         });
+
+        const resolvedPromises = await Promise.all(promises);
+        return resolvedPromises;
+        
     }
 
     async addUser(data) {

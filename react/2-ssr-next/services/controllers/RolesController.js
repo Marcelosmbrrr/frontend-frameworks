@@ -10,7 +10,15 @@ export class RolesController {
 
     async getRoles(where = null) {
         const result = await this.#model.getMany(where);
-        return result.docs.map(doc => doc.data());
+
+        return result.docs.map(docSnap => {
+
+            const data = docSnap.data();
+            data["uuid"] = docSnap.id;
+
+            return data;
+
+        });
     }
 
     async addRole(data) {
