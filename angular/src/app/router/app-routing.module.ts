@@ -9,6 +9,7 @@ import { CalculatorComponent } from '../components/pages/home/calculator/calcula
 import { TodoListComponent } from '../components/pages/home/todo-list/todo-list.component';
 import { TableComponent } from '../components/pages/home/table/table.component';
 import { MyProfileComponent } from '../components/pages/home/my-profile/my-profile.component';
+import { NotfoundComponent } from '../components/pages/notfound/notfound.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
@@ -20,13 +21,16 @@ const routes: Routes = [
       { path: 'calculator', component: CalculatorComponent, pathMatch: 'full' },
       { path: 'todo-list', component: TodoListComponent, pathMatch: 'full' },
       { path: 'table', component: TableComponent, pathMatch: 'full' },
-      { path: 'my-profile', component: MyProfileComponent, pathMatch: 'full' }
+      { path: 'my-profile', component: MyProfileComponent, pathMatch: 'full' },
     ]
-  }
+  },
+  { path: '**', component: NotfoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabledBlocking'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
