@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './router/app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +9,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { SigninComponent } from './components/pages/signin/signin.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
 import { CreateComponent } from './components/shared/formulary/user/create/create.component';
-import { UpdateComponent } from './components/shared/formulary/user/update/update.component';
+import { EditComponent } from './components/shared/formulary/user/edit/edit.component';
 import { HeaderComponent } from './components/shared/layout/header/header.component';
 import { ContainerComponent } from './components/shared/layout/container/container.component';
 import { DashboardComponent } from './components/pages/home/dashboard/dashboard.component';
@@ -25,7 +25,7 @@ import { NotfoundComponent } from './components/pages/notfound/notfound.componen
     SigninComponent,
     SignupComponent,
     CreateComponent,
-    UpdateComponent,
+    EditComponent,
     HeaderComponent,
     ContainerComponent,
     DashboardComponent,
@@ -46,4 +46,18 @@ import { NotfoundComponent } from './components/pages/notfound/notfound.componen
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule implements OnInit {
+
+  // Theme
+  ngOnInit() {
+    const theme = localStorage.getItem("app-theme");
+    if (!theme) {
+      localStorage.setItem("app-theme", "dark");
+      return;
+    }
+    if (theme === "light") {
+      document.body.classList.remove("dark");
+    }
+  }
+
+}
