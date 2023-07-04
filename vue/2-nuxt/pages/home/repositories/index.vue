@@ -32,6 +32,16 @@
 </template>
 
 <script setup>
+import * as Vue from 'vue';
+
+Vue.onMounted(() => {
+    fetchData();
+});
+
+async function fetchData() {
+    const { data: count } = await useFetch('/api/count')
+}
+
 definePageMeta({
     layout: "home",
 });

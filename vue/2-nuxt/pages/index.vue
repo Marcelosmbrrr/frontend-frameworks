@@ -72,7 +72,7 @@ function formValidation() {
 function request() {
     try {
         signIn(form);
-        router.push('/home/mypages')
+        router.push('/home/repositories')
     } catch (e) {
         console.log(e);
     } finally {
