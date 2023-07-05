@@ -16,6 +16,16 @@ export default function useAuth() {
     const user = useState<IUser>('auth', () => JSON.parse(initialUser));
     const isAuthenticated = useState<boolean>('is_authenticated', () => false);
 
+    function refresh() {
+
+        // Get authentication token
+        // Load user data
+        // Refresh state
+
+        user.value = { name: 'Admin', email: "admin@gmail.com", role: 'Administrator' };
+        isAuthenticated.value = true;
+    }
+
     async function signIn(form: IForm) {
         setTimeout(() => {
             // request time simulation
@@ -43,6 +53,7 @@ export default function useAuth() {
     return {
         user,
         isAuthenticated,
+        refresh,
         signIn,
         signOut
     };
