@@ -23,7 +23,6 @@
       <p>{{ `<script setup>` }}</p>
       <p>&nbsp;&nbsp;&nbsp;{{ `const title = defineModel('title')` }}</p>
       <p>{{ `<script />` }}</p>
-      <br></br> 
     </div>
   </article>
 </template>

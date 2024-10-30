@@ -163,7 +163,7 @@
                 </li>
                 <li>
                   <RouterLink
-                    to="conditional"
+                    to="conditionals"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
                   >
                     Conditional
@@ -249,7 +249,7 @@
               to="watchers"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
             >
-              <EyeIcon
+              <WindowIcon
                 class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
               />
               <span class="ml-3">Routing</span>
@@ -315,6 +315,7 @@ import {
   EyeIcon,
   ArchiveBoxIcon,
   Squares2X2Icon,
+  WindowIcon
 } from "@heroicons/vue/24/outline";
 import { useAppNameStore } from "@/stores/appname";
 
