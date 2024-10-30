@@ -13,16 +13,15 @@
           >
             <IconMenu />
           </button>
-          <a
-            href="https://flowbite.com"
+          <span
             class="flex items-center justify-between mr-4"
           >
             <IconVue />
             <span
               class="self-center text-2xl font-semibold whitespace-nowrap text-gray-900"
-              >Vue.js</span
+              >{{ name }}</span
             >
-          </a>
+          </span>
         </div>
       </div>
     </nav>
@@ -39,6 +38,17 @@
           <li>
             <RouterLink
               to="introduction"
+              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
+            >
+              <Squares2X2Icon
+                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+              />
+              <span class="ml-3">Introduction</span>
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink
+              to="life-cycle"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
             >
               <ArrowPathRoundedSquareIcon
@@ -67,53 +77,52 @@
             <Transition>
               <ul v-if="openComponents" class="py-2 space-y-2 transition-all">
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="composition"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Composition</a
                   >
+                    Composition Api
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="props"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Props</a
                   >
+                    Props
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="events"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Events</a
                   >
+                    Events
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="v-model-component"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >V-Model</a
                   >
+                    V-Model
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="slot"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Slot</a
                   >
+                    Slot
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="dynamic-component"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Dynamic Component</a
                   >
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Built-in Components</a
-                  >
+                    Dynamic Component
+                  </RouterLink>
                 </li>
               </ul>
             </Transition>
@@ -137,59 +146,65 @@
             <Transition>
               <ul v-if="openDirectives" class="py-2 space-y-2 transition-all">
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="binding"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Binding</a
                   >
+                    Binding
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="two-way-binding"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Two-way binding</a
                   >
+                    Two-way Binding
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="conditional"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Conditional</a
                   >
+                    Conditional
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="loops"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Loops</a
                   >
+                    Loops
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="event-listener"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Event Listener</a
                   >
+                    Event Listener
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="memo"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Memo</a
                   >
+                    Memo
+                  </RouterLink>
                 </li>
               </ul>
             </Transition>
           </li>
           <li>
             <RouterLink
-              to="introduction"
+              to="class-style-binding"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
             >
               <PaintBrushIcon
                 class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
               />
-              <span class="ml-3">Style Binding</span>
+              <span class="ml-3">Class-Style Binding</span>
             </RouterLink>
           </li>
           <li>
@@ -211,25 +226,49 @@
             <Transition>
               <ul v-if="openReactivity" class="py-2 space-y-2 transition-all">
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="ref"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Ref</a
                   >
+                    Ref
+                  </RouterLink>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <RouterLink
+                    to="reactive"
                     class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100"
-                    >Reactive</a
                   >
+                    Reactive
+                  </RouterLink>
                 </li>
               </ul>
             </Transition>
           </li>
           <li>
             <RouterLink
-              to="introduction"
+              to="watchers"
+              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
+            >
+              <EyeIcon
+                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+              />
+              <span class="ml-3">Routing</span>
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink
+              to="stores"
+              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
+            >
+              <ArchiveBoxIcon
+                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+              />
+              <span class="ml-3">Stores</span>
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink
+              to="computed"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
             >
               <CalculatorIcon
@@ -240,7 +279,7 @@
           </li>
           <li>
             <RouterLink
-              to="introduction"
+              to="watchers"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
             >
               <EyeIcon
@@ -249,24 +288,13 @@
               <span class="ml-3">Watchers</span>
             </RouterLink>
           </li>
-          <li>
-            <RouterLink
-              to="introduction"
-              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
-            >
-              <ArchiveBoxIcon
-                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
-              />
-              <span class="ml-3">Stores</span>
-            </RouterLink>
-          </li>
         </ul>
       </div>
     </aside>
 
     <!-- Main -->
 
-    <main class="p-4 md:ml-64 h-auto pt-20">
+    <main class="p-4 md:ml-64 h-auto pt-20 bg-white">
       <RouterView />
     </main>
   </div>
@@ -286,8 +314,11 @@ import {
   CalculatorIcon,
   EyeIcon,
   ArchiveBoxIcon,
-  ChevronDownIcon,
+  Squares2X2Icon,
 } from "@heroicons/vue/24/outline";
+import { useAppNameStore } from "@/stores/appname";
+
+const { name } = useAppNameStore();
 
 const openComponents = Vue.ref(false);
 const openReactivity = Vue.ref(false);
