@@ -6,8 +6,8 @@
     class="max-w-7xl space-y-2 format format-sm sm:format-base lg:format-lg format-blue dark:format-invert"
   >
     <p class="lead">
-      The Vue.js lifecycle consists of several phases that a Vue instance goes
-      through:
+      The Vue.js lifecycle consists of <a href="https://vuejs.org/api/composition-api-lifecycle.html" class="underline text-emerald-400" target="_blank">several phases</a> that a Vue instance goes
+      through.
     </p>
     <h2 class="text-lg font-semibold">1. Creation Phase</h2>
     <ul>

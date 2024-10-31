@@ -5,7 +5,7 @@
   <article
     class="max-w-7xl space-y-2 format format-sm sm:format-base lg:format-lg format-blue dark:format-invert"
   >
-  <div class="bg-gray-100 rounded code-container p-3">
+    <div class="bg-gray-100 rounded code-container p-3">
       <p>{{ `<template>` }}</p>
       <p>&nbsp;&nbsp;&nbsp;{{ `component html` }}</p>
       <p>{{ `</template>` }}</p>

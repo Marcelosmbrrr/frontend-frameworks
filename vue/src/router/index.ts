@@ -21,6 +21,19 @@ import LoopsView from "@/views/2-essentials/2-directives/LoopsView.vue";
 import EventListenerView from "@/views/2-essentials/2-directives/EventListenerView.vue";
 import MemoView from "@/views/2-essentials/2-directives/MemoView.vue";
 
+// Class and style binding
+import ClassStyleBindingView from "@/views/2-essentials/3-class-style-binding/ClassStyleBindingView.vue";
+
+// Reactivity 
+import RefView from "@/views/2-essentials/4-reactivity/RefView.vue";
+import ReactiveView from "@/views/2-essentials/4-reactivity/ReactiveView.vue";
+
+// Routing, Computed, Watchers and Stores
+import RoutingView from "@/views/2-essentials/5-routing/RoutingView.vue";
+import ComputedView from "@/views/2-essentials/6-computed/ComputedView.vue";
+import WatchersView from "@/views/2-essentials/7-watchers/WatchersView.vue";
+import StoresView from "@/views/2-essentials/8-stores/StoresView.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -83,6 +96,34 @@ const router = createRouter({
         {
           path: "/memo",
           component: MemoView,
+        },
+        {
+          path: "/class-style-binding",
+          component: ClassStyleBindingView,
+        },
+        {
+          path: "/ref",
+          component: RefView,
+        },
+        {
+          path: "/reactive",
+          component: ReactiveView,
+        },
+        {
+          path: "/routing",
+          component: RoutingView,
+        },
+        {
+          path: "/computed",
+          component: ComputedView,
+        },
+        {
+          path: "/watchers",
+          component: WatchersView,
+        },
+        {
+          path: "/stores",
+          component: StoresView,
         },
       ],
     },

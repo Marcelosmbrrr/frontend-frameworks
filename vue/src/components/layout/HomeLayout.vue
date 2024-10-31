@@ -246,7 +246,7 @@
           </li>
           <li>
             <RouterLink
-              to="watchers"
+              to="routing"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 group"
             >
               <WindowIcon
@@ -319,7 +319,10 @@ import {
 } from "@heroicons/vue/24/outline";
 import { useAppNameStore } from "@/stores/appname";
 
-const { name } = useAppNameStore();
+import { storeToRefs } from "pinia";
+
+const store = useAppNameStore();
+const { name } = storeToRefs(store);
 
 const openComponents = Vue.ref(false);
 const openReactivity = Vue.ref(false);
